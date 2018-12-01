@@ -109,24 +109,24 @@
 
 
   <meta name="description" content="前言想装个 Linux 学习 python ，第一次折腾，结果上周末装个双系统结果不小心把 Win 也给搞没了，还好没什么重要文件。准备 618 京东上买个 SSD 和移动硬盘，提升性能做好备份。">
-<meta name="keywords" content="Ubuntu,装机">
+<meta name="keywords" content="装机,Ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="配置 Ubuntu 17.04">
 <meta property="og:url" content="https://www.lugick.com/2017/06/06/-config-ubuntu-17-04/index.html">
 <meta property="og:site_name" content="Lugick Wang&#39;s Blog">
 <meta property="og:description" content="前言想装个 Linux 学习 python ，第一次折腾，结果上周末装个双系统结果不小心把 Win 也给搞没了，还好没什么重要文件。准备 618 京东上买个 SSD 和移动硬盘，提升性能做好备份。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.lugick.com/image/ubuntu-1.png">
-<meta property="og:image" content="https://www.lugick.com/image/ubuntu-2.png">
-<meta property="og:image" content="https://www.lugick.com/image/ubuntu_sougou_1.png">
+<meta property="og:image" content="https://www.lugick.com/images/ubuntu-1.png">
+<meta property="og:image" content="https://www.lugick.com/images/ubuntu-2.png">
+<meta property="og:image" content="https://www.lugick.com/images/ubuntu_sougou_1.png">
 <meta property="og:image" content="https://www.lugick.com/image/ubuntu_sougou_2.png">
-<meta property="og:image" content="https://www.lugick.com/image/ubuntu_net_1.png">
-<meta property="og:image" content="https://www.lugick.com/image/ubuntu_net_2.png">
-<meta property="og:updated_time" content="2018-12-01T13:48:58.268Z">
+<meta property="og:image" content="https://www.lugick.com/images/ubuntu_net_1.png">
+<meta property="og:image" content="https://www.lugick.com/images/ubuntu_net_2.png">
+<meta property="og:updated_time" content="2018-12-01T13:58:45.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="配置 Ubuntu 17.04">
 <meta name="twitter:description" content="前言想装个 Linux 学习 python ，第一次折腾，结果上周末装个双系统结果不小心把 Win 也给搞没了，还好没什么重要文件。准备 618 京东上买个 SSD 和移动硬盘，提升性能做好备份。">
-<meta name="twitter:image" content="https://www.lugick.com/image/ubuntu-1.png">
+<meta name="twitter:image" content="https://www.lugick.com/images/ubuntu-1.png">
 
 
 
@@ -453,12 +453,12 @@
 <li><p>修改 ubuntu grub</p>
 <p> <strong>Ctrl + Alt + T</strong> 打开终端，输入 <code>sudo gedit /etc/default/grub</code> ，输入密码，回车。</p>
 <p> 修改 <strong>GRUB_DEFAULT=4</strong> （下图 Win 是第几个，index 从 0 开始）</p>
-<p> <img src="/image/ubuntu-1.png" alt="Ubuntu"></p>
+<p> <img src="/images/ubuntu-1.png" alt="Ubuntu"></p>
 <p> 修改 <strong>GRUB_TIMEOUT=3</strong> （这个是倒计时的时间，设置短一点）</p>
 <p> 保存文件，在终端输入 <code>sudo update-grub</code> ，重启电脑。</p>
 </li>
 <li><p>修改 Win<br> 使用 EasyBCD 或者 nt6 hdd installer 来修改倒计时时间，3 秒就行了</p>
-<p> <img src="/image/ubuntu-2.png" alt="win"></p>
+<p> <img src="/images/ubuntu-2.png" alt="win"></p>
 </li>
 </ol>
 <h3 id="vi-编辑器上下左右变-ABCD-解决办法"><a href="#vi-编辑器上下左右变-ABCD-解决办法" class="headerlink" title="vi 编辑器上下左右变 ABCD 解决办法"></a>vi 编辑器上下左右变 ABCD 解决办法</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove vim-common</span><br><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
@@ -482,7 +482,7 @@
 <p> 或</p>
 <p> 终端输入 <code>im-config</code> ，选择 fcitx 。</p>
 <p> 重启电脑。</p>
-<p> <img src="/image/ubuntu_sougou_1.png" alt="fcitx"></p>
+<p> <img src="/images/ubuntu_sougou_1.png" alt="fcitx"></p>
 </li>
 <li><p>终端输入 <code>fcitx-config-gtk3</code> ，点击 + 号，取消选中 <strong>Only Show Current Language</strong></p>
 <p><img src="/image/ubuntu_sougou_2.png" alt="sougou"></p>
@@ -496,8 +496,8 @@
 <p>程序走代理 <code>proxychains XXX</code></p>
 <h3 id="dropbox"><a href="#dropbox" class="headerlink" title="dropbox"></a>dropbox</h3><p>下载 deb ，安装。<br>启动 <code>proxychains dropbox start -i</code> （后续启动貌似不加 -i ）</p>
 <h3 id="状态栏显示网速等"><a href="#状态栏显示网速等" class="headerlink" title="状态栏显示网速等"></a>状态栏显示网速等</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository <span class="symbol">ppa:</span>fossfreedom/indicator-sysmonitor  </span><br><span class="line">sudo apt-get update </span><br><span class="line">sudo apt-get install indicator-sysmonitor  </span><br><span class="line">indicator-sysmonitor</span><br></pre></td></tr></table></figure>
-<p><img src="/image/ubuntu_net_1.png" alt="net1"></p>
-<p><img src="/image/ubuntu_net_2.png" alt="net2"></p>
+<p><img src="/images/ubuntu_net_1.png" alt="net1"></p>
+<p><img src="/images/ubuntu_net_2.png" alt="net2"></p>
 
       
     </div>
@@ -521,9 +521,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
-          
             <a href="/tags/装机/" rel="tag"># 装机</a>
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
           
         </div>
       

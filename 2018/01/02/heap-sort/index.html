@@ -116,16 +116,16 @@
 <meta property="og:site_name" content="Lugick Wang&#39;s Blog">
 <meta property="og:description" content="前言理一下堆排序的实现原理，以最大堆为例。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.lugick.com/image/heap_sorting_0.png">
-<meta property="og:image" content="https://www.lugick.com/image/heap_sorting_1.png">
-<meta property="og:image" content="https://www.lugick.com/image/heap_sorting_2.png">
-<meta property="og:image" content="https://www.lugick.com/image/heap_sorting_3.png">
-<meta property="og:image" content="https://www.lugick.com/image/heap_sorting_4.png">
-<meta property="og:updated_time" content="2018-12-01T13:54:34.297Z">
+<meta property="og:image" content="https://www.lugick.com/images/heap_sorting_0.png">
+<meta property="og:image" content="https://www.lugick.com/images/heap_sorting_1.png">
+<meta property="og:image" content="https://www.lugick.com/images/heap_sorting_2.png">
+<meta property="og:image" content="https://www.lugick.com/images/heap_sorting_3.png">
+<meta property="og:image" content="https://www.lugick.com/images/heap_sorting_4.png">
+<meta property="og:updated_time" content="2018-12-01T13:58:58.417Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="排序算法——堆排序">
 <meta name="twitter:description" content="前言理一下堆排序的实现原理，以最大堆为例。">
-<meta name="twitter:image" content="https://www.lugick.com/image/heap_sorting_0.png">
+<meta name="twitter:image" content="https://www.lugick.com/images/heap_sorting_0.png">
 
 
 
@@ -449,16 +449,16 @@
 <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>实际以数组 <strong>Array</strong> 来存储，构建完全二叉树。最后一个有子节点的节点的数组下标为 <strong>Array.count / 2  - 1</strong>.以最大堆为例，从最后一个有子节点的节点 Node 开始一直到根结点，将 Node 与其较大的子节点交换，交换后如果还比子节点小，继续与子节点交换。最后构成最大堆。然后将最后一个节点与根结点交换，弹出根节点。</p>
 <h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>3，44，38，5，47，15</p>
 <p>按顺序构建堆为</p>
-<p><img src="/image/heap_sorting_0.png" alt=""></p>
+<p><img src="/images/heap_sorting_0.png" alt=""></p>
 <p>最后一个有子节点的节点的数组下标为 6 / 2 - 1 = 2，也就是 <strong>38</strong></p>
 <h4 id="排序过程："><a href="#排序过程：" class="headerlink" title="排序过程："></a>排序过程：</h4><p>1.<br><strong>38</strong>。大于 15，不用管</p>
-<p><img src="/image/heap_sorting_1.png" alt=""></p>
+<p><img src="/images/heap_sorting_1.png" alt=""></p>
 <p>2.<br><strong>44</strong>。 与较大的子节点 <strong>47</strong> 交换</p>
-<p><img src="/image/heap_sorting_2.png" alt=""></p>
+<p><img src="/images/heap_sorting_2.png" alt=""></p>
 <p>3.<br><strong>3</strong>。 与较大的 <strong>47</strong> 交换，然后再与 <strong>44</strong> 交换，构成最大堆。</p>
-<p><img src="/image/heap_sorting_3.png" alt=""></p>
+<p><img src="/images/heap_sorting_3.png" alt=""></p>
 <p>4.<br>将最后一个节点 <strong>15</strong> 与根结点 <strong>47</strong> 交换，弹出 <strong>47</strong></p>
-<p><img src="/image/heap_sorting_4.png" alt=""></p>
+<p><img src="/images/heap_sorting_4.png" alt=""></p>
 <p>5.<br>将剩下的依次构建最大堆，直到结束。</p>
 
       
