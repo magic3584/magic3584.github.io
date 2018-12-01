@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言想装个 Linux 学习 python ，第一次折腾，结果上周末装个双系统结果不小心把 Win 也给搞没了，还好没什么重要文件。准备 618 京东上买个 SSD 和移动硬盘，提升性能做好备份。">
+<meta name="keywords" content="装机,Ubuntu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="配置 Ubuntu 17.04">
+<meta property="og:url" content="http://yoursite.com/2017/06/06/-config-ubuntu-17-04/index.html">
+<meta property="og:site_name" content="Lugick Wang&#39;s Blog">
+<meta property="og:description" content="前言想装个 Linux 学习 python ，第一次折腾，结果上周末装个双系统结果不小心把 Win 也给搞没了，还好没什么重要文件。准备 618 京东上买个 SSD 和移动硬盘，提升性能做好备份。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oalnl189m.bkt.clouddn.com/ubuntu.png">
+<meta property="og:image" content="http://oalnl189m.bkt.clouddn.com/win.png">
+<meta property="og:image" content="http://oalnl189m.bkt.clouddn.com/ubuntu_sougou_1.png">
+<meta property="og:image" content="http://oalnl189m.bkt.clouddn.com/ubuntu_sougou_2.png">
+<meta property="og:image" content="http://oalnl189m.bkt.clouddn.com/ubuntu_net_1.png">
+<meta property="og:image" content="http://oalnl189m.bkt.clouddn.com/ubuntu_net_2.png">
+<meta property="og:updated_time" content="2018-06-09T07:37:07.984Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="配置 Ubuntu 17.04">
+<meta name="twitter:description" content="前言想装个 Linux 学习 python ，第一次折腾，结果上周末装个双系统结果不小心把 Win 也给搞没了，还好没什么重要文件。准备 618 京东上买个 SSD 和移动硬盘，提升性能做好备份。">
+<meta name="twitter:image" content="http://oalnl189m.bkt.clouddn.com/ubuntu.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/06/-config-ubuntu-17-04/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>配置 Ubuntu 17.04 | Lugick Wang's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lugick Wang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/06/-config-ubuntu-17-04/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lugick Wang">
+      <meta itemprop="description" content="书山有路勤为径，学海无涯苦作舟。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lugick Wang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">配置 Ubuntu 17.04
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-06-06 14:44:46" itemprop="dateCreated datePublished" datetime="2017-06-06T14:44:46+08:00">2017-06-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-06-09 15:37:07" itemprop="dateModified" datetime="2018-06-09T15:37:07+08:00">2018-06-09</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>想装个 Linux 学习 python ，第一次折腾，结果上周末装个双系统结果不小心把 Win 也给搞没了，还好没什么重要文件。准备 618 京东上买个 SSD 和移动硬盘，提升性能做好备份。<br><a id="more"></a></p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>硬盘分区，UltroISO 制作 U 盘启动盘，安装时会提示 Win 和 Ubuntu 共存（没有的话就停下来吧，要不然 Win 就玩完了），没有手动分配空间采用的默认安装。<br>Done ～</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="引导设置"><a href="#引导设置" class="headerlink" title="引导设置"></a>引导设置</h3><p>我的安装完双系统后是先 Ubuntu grub 后 Win bootloader 。想默认开机  Win 。</p>
+<ol>
+<li><p>修改 ubuntu grub</p>
+<p> <strong>Ctrl + Alt + T</strong> 打开终端，输入 <code>sudo gedit /etc/default/grub</code> ，输入密码，回车。</p>
+<p> 修改 <strong>GRUB_DEFAULT=4</strong> （下图 Win 是第几个，index 从 0 开始）</p>
+<p> <img src="http://oalnl189m.bkt.clouddn.com/ubuntu.png" alt="Ubuntu"></p>
+<p> 修改 <strong>GRUB_TIMEOUT=3</strong> （这个是倒计时的时间，设置短一点）</p>
+<p> 保存文件，在终端输入 <code>sudo update-grub</code> ，重启电脑。</p>
+</li>
+<li><p>修改 Win<br> 使用 EasyBCD 或者 nt6 hdd installer 来修改倒计时时间，3 秒就行了</p>
+<p> <img src="http://oalnl189m.bkt.clouddn.com/win.png" alt="win"></p>
+</li>
+</ol>
+<h3 id="vi-编辑器上下左右变-ABCD-解决办法"><a href="#vi-编辑器上下左右变-ABCD-解决办法" class="headerlink" title="vi 编辑器上下左右变 ABCD 解决办法"></a>vi 编辑器上下左右变 ABCD 解决办法</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get remove vim-common</span><br><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
+<h3 id="Shadowsocks"><a href="#Shadowsocks" class="headerlink" title="Shadowsocks"></a>Shadowsocks</h3><p><a href="https://github.com/shadowsocks/shadowsocks-qt5" target="_blank" rel="noopener">shadowsocks-qt5</a></p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository <span class="symbol">ppa:</span>hzwhuang/ss-qt5</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install shadowsocks-qt5</span><br></pre></td></tr></table></figure>
+<p>系统代理 SOCKS5 ，127.0.0.1: 1080 ， 其他留空。</p>
+<h3 id="Google-Chrome"><a href="#Google-Chrome" class="headerlink" title="Google Chrome"></a>Google Chrome</h3><p>官网下载 deb ，如果双击无法跳转 Ubuntu Software 安装，可以使用两种方法安装：</p>
+<ol>
+<li>命令行 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i chrome.deb</span><br><span class="line">sudo apt-get install -f</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>使用 gdebi</p>
+ <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gdebi</span><br></pre></td></tr></table></figure>
+<p> deb 文件右键，安装。</p>
+</li>
+</ol>
+<h3 id="搜狗输入法"><a href="#搜狗输入法" class="headerlink" title="搜狗输入法"></a>搜狗输入法</h3><ol>
+<li>官网下载 deb</li>
+<li><p>系统设置 —&gt; 语言支持  —&gt; 键盘输入方式，选择 fcitx 。</p>
+<p> 或</p>
+<p> 终端输入 <code>im-config</code> ，选择 fcitx 。</p>
+<p> 重启电脑。</p>
+<p> <img src="http://oalnl189m.bkt.clouddn.com/ubuntu_sougou_1.png" alt="fcitx"></p>
+</li>
+<li><p>终端输入 <code>fcitx-config-gtk3</code> ，点击 + 号，取消选中 <strong>Only Show Current Language</strong></p>
+<p><img src="http://oalnl189m.bkt.clouddn.com/ubuntu_sougou_2.png" alt="sougou"></p>
+</li>
+<li><p><strong>Ctrl + Shift</strong> 切换输入法</p>
+</li>
+</ol>
+<h3 id="全局代理"><a href="#全局代理" class="headerlink" title="全局代理"></a>全局代理</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install proxychains</span><br><span class="line">sudo vi /etc/proxychains.conf</span><br></pre></td></tr></table></figure>
+<p>注释掉 socks4 127.0.0.1 9050<br>添加  socks5 127.0.0.1 1080<br>测试 proxychains 是否正常工作</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains wget <span class="symbol">http:</span>/<span class="regexp">/google.com</span></span><br></pre></td></tr></table></figure>
+<p>程序走代理 <code>proxychains XXX</code></p>
+<h3 id="dropbox"><a href="#dropbox" class="headerlink" title="dropbox"></a>dropbox</h3><p>下载 deb ，安装。<br>启动 <code>proxychains dropbox start -i</code> （后续启动貌似不加 -i ）</p>
+<h3 id="状态栏显示网速等"><a href="#状态栏显示网速等" class="headerlink" title="状态栏显示网速等"></a>状态栏显示网速等</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository <span class="symbol">ppa:</span>fossfreedom/indicator-sysmonitor  </span><br><span class="line">sudo apt-get update </span><br><span class="line">sudo apt-get install indicator-sysmonitor  </span><br><span class="line">indicator-sysmonitor</span><br></pre></td></tr></table></figure>
+<p><img src="http://oalnl189m.bkt.clouddn.com/ubuntu_net_1.png" alt="net1"></p>
+<p><img src="http://oalnl189m.bkt.clouddn.com/ubuntu_net_2.png" alt="net2"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/装机/" rel="tag"># 装机</a>
+          
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/26/-config-mac/" rel="next" title="配置新Mac">
+                <i class="fa fa-chevron-left"></i> 配置新Mac
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/26/virtualenv-in-Python/" rel="prev" title="virtualenv in Python">
+                virtualenv in Python <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lugick Wang</p>
+              <p class="site-description motion-element" itemprop="description">书山有路勤为径，学海无涯苦作舟。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置"><span class="nav-number">3.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引导设置"><span class="nav-number">3.1.</span> <span class="nav-text">引导设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vi-编辑器上下左右变-ABCD-解决办法"><span class="nav-number">3.2.</span> <span class="nav-text">vi 编辑器上下左右变 ABCD 解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Shadowsocks"><span class="nav-number">3.3.</span> <span class="nav-text">Shadowsocks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Google-Chrome"><span class="nav-number">3.4.</span> <span class="nav-text">Google Chrome</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜狗输入法"><span class="nav-number">3.5.</span> <span class="nav-text">搜狗输入法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局代理"><span class="nav-number">3.6.</span> <span class="nav-text">全局代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dropbox"><span class="nav-number">3.7.</span> <span class="nav-text">dropbox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态栏显示网速等"><span class="nav-number">3.8.</span> <span class="nav-text">状态栏显示网速等</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lugick Wang</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.5.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

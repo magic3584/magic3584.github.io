@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.5.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="前言选择导航和百度鹰眼轨迹使用方法。">
+<meta name="keywords" content="第三方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="地图导航和百度鹰眼轨迹播放">
+<meta property="og:url" content="http://yoursite.com/2018/01/16/maps-and-track/index.html">
+<meta property="og:site_name" content="Lugick Wang&#39;s Blog">
+<meta property="og:description" content="前言选择导航和百度鹰眼轨迹使用方法。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-06-09T07:37:07.986Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="地图导航和百度鹰眼轨迹播放">
+<meta name="twitter:description" content="前言选择导航和百度鹰眼轨迹使用方法。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/16/maps-and-track/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>地图导航和百度鹰眼轨迹播放 | Lugick Wang's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Lugick Wang's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/16/maps-and-track/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lugick Wang">
+      <meta itemprop="description" content="书山有路勤为径，学海无涯苦作舟。">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lugick Wang's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">地图导航和百度鹰眼轨迹播放
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-01-16 14:28:46" itemprop="dateCreated datePublished" datetime="2018-01-16T14:28:46+08:00">2018-01-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-06-09 15:37:07" itemprop="dateModified" datetime="2018-06-09T15:37:07+08:00">2018-06-09</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>选择导航和百度鹰眼轨迹使用方法。<br><a id="more"></a></p>
+<h3 id="导航选择"><a href="#导航选择" class="headerlink" title="导航选择"></a>导航选择</h3><p>先在 info.plist 中添加 schemes</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>LSApplicationQueriesSchemes<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>iosamap<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">string</span>&gt;</span>baidumap<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Swift 4</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">        <span class="keyword">var</span> start: <span class="type">CLLocationCoordinate2D</span>!</span><br><span class="line">        <span class="keyword">var</span> end: <span class="type">CLLocationCoordinate2D</span>!</span><br><span class="line">        </span><br><span class="line">        <span class="type">CLGeocoder</span>().geocodeAddressString(order.startAddress) &#123; (placemarks, error) <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> placemark = placemarks?.first &#123;</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">let</span> location = placemark.location &#123;</span><br><span class="line">                    start = location.coordinate</span><br><span class="line"><span class="comment">//                    start = CLLocationCoordinate2D.init(latitude: 39.9042, longitude: 116.4074)</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="type">CLGeocoder</span>().geocodeAddressString(order.startAddress) &#123; (placemarks, error) <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> placemark = placemarks?.first &#123;</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">let</span> location = placemark.location &#123;</span><br><span class="line">                        end = location.coordinate</span><br><span class="line"><span class="comment">//                    end = CLLocationCoordinate2D.init(latitude: 39.3434, longitude: 117.3616)</span></span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> alert = <span class="type">UIAlertController</span>.<span class="keyword">init</span>(title: <span class="string">"请选择导航"</span>, message: <span class="literal">nil</span>, preferredStyle: .actionSheet)</span><br><span class="line">        </span><br><span class="line">        alert.addAction(<span class="type">UIAlertAction</span>.<span class="keyword">init</span>(title: <span class="string">"苹果地图"</span>, style: .<span class="keyword">default</span>, handler: &#123; (<span class="number">_</span>) <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> start != <span class="literal">nil</span> &amp;&amp; end != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> s = <span class="type">MKMapItem</span>.<span class="keyword">init</span>(placemark: <span class="type">MKPlacemark</span>.<span class="keyword">init</span>(coordinate: start, addressDictionary: <span class="literal">nil</span>))</span><br><span class="line">                <span class="keyword">let</span> e = <span class="type">MKMapItem</span>.<span class="keyword">init</span>(placemark: <span class="type">MKPlacemark</span>.<span class="keyword">init</span>(coordinate: end, addressDictionary: <span class="literal">nil</span>))</span><br><span class="line">                <span class="type">MKMapItem</span>.openMaps(with: [s, e], launchOptions: [<span class="type">MKLaunchOptionsDirectionsModeKey</span>: <span class="type">MKLaunchOptionsDirectionsModeDriving</span>])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;))</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="type">UIApplication</span>.shared.canOpenURL(<span class="type">URL</span>.<span class="keyword">init</span>(string: <span class="string">"iosamap://"</span>)!) &#123;</span><br><span class="line">            alert.addAction(<span class="type">UIAlertAction</span>.<span class="keyword">init</span>(title: <span class="string">"高德地图"</span>, style: .<span class="keyword">default</span>, handler: &#123; (<span class="number">_</span>) <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">if</span> start != <span class="literal">nil</span> &amp;&amp; end != <span class="literal">nil</span> &#123;</span><br><span class="line">                    <span class="keyword">let</span> string = <span class="type">String</span>(format: <span class="string">"iosamap://navi?sourceApplication=zhiyuncar&amp;backScheme=zhiyuncar&amp;lat=%f&amp;lon=%f&amp;dev=0&amp;style=2"</span>,end.latitude,end.longitude)</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> url = <span class="type">URL</span>.<span class="keyword">init</span>(string: string) &#123;</span><br><span class="line">                        <span class="type">UIApplication</span>.shared.openURL(url)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;))</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="type">UIApplication</span>.shared.canOpenURL(<span class="type">URL</span>.<span class="keyword">init</span>(string: <span class="string">"baidumap://"</span>)!) &#123;</span><br><span class="line">            alert.addAction(<span class="type">UIAlertAction</span>.<span class="keyword">init</span>(title: <span class="string">"百度地图"</span>, style: .<span class="keyword">default</span>, handler: &#123; (<span class="number">_</span>) <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">if</span> start != <span class="literal">nil</span> &amp;&amp; end != <span class="literal">nil</span> &#123;</span><br><span class="line">                    <span class="keyword">let</span> string = <span class="type">String</span>(format: <span class="string">"baidumap://map/direction?origin=%f,%f&amp;destination=%f,%f&amp;mode=driving&amp;coord_type=gcj02"</span>,start.latitude, start.longitude,end.latitude, end.longitude)</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> url = <span class="type">URL</span>.<span class="keyword">init</span>(string: string) &#123;</span><br><span class="line">                        <span class="type">UIApplication</span>.shared.openURL(url)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;))</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        alert.addAction(<span class="type">UIAlertAction</span>.<span class="keyword">init</span>(title: <span class="string">"取消"</span>, style: .cancel, handler: <span class="literal">nil</span>))</span><br><span class="line">        present(alert, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="百度鹰眼"><a href="#百度鹰眼" class="headerlink" title="百度鹰眼"></a>百度鹰眼</h3><ol>
+<li><p><strong>AppDelegate</strong> 中启用百度地图</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mapManager = <span class="type">BMKMapManager</span>()</span><br><span class="line">mapManager?.start(<span class="type">BAIDU_AK</span>, generalDelegate: <span class="keyword">self</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加地图，实现 protocol <strong>BMKMapViewDelegate</strong></p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mapView</span><span class="params">(<span class="number">_</span> mapView: BMKMapView!, viewFor overlay: BMKOverlay!)</span></span> -&gt; <span class="type">BMKOverlayView</span>! &#123;</span><br><span class="line">    <span class="keyword">if</span> overlay <span class="keyword">is</span> <span class="type">BMKPolyline</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> line = <span class="type">BMKPolylineView</span>.<span class="keyword">init</span>(overlay: overlay)</span><br><span class="line">        line?.strokeColor = <span class="type">UIColor</span>.<span class="keyword">init</span>(red: <span class="number">23</span>/<span class="number">255.0</span>, green: <span class="number">161</span>/<span class="number">255.0</span>, blue: <span class="number">95</span>/<span class="number">255.0</span>, alpha: <span class="number">1</span>)</span><br><span class="line">        line?.lineWidth = <span class="number">5</span></span><br><span class="line">        line?.colors = [<span class="type">UIColor</span>.<span class="keyword">init</span>(red: <span class="number">23</span>/<span class="number">255.0</span>, green: <span class="number">161</span>/<span class="number">255.0</span>, blue: <span class="number">95</span>/<span class="number">255.0</span>, alpha: <span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">return</span> line</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">mapView</span><span class="params">(<span class="number">_</span> mapView: BMKMapView!, viewFor annotation: BMKAnnotation!)</span></span> -&gt; <span class="type">BMKAnnotationView</span>! &#123;</span><br><span class="line">    <span class="keyword">let</span> view = <span class="type">BMKPinAnnotationView</span>.<span class="keyword">init</span>(annotation: annotation, reuseIdentifier: <span class="string">"myAnnotation"</span>)</span><br><span class="line">    view?.pinColor = <span class="number">3</span></span><br><span class="line">    view?.animatesDrop = <span class="literal">false</span></span><br><span class="line">    view?.annotation = annotation</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> locationString == <span class="string">"终点"</span> &#123;</span><br><span class="line">        view?.image = <span class="type">UIImage</span>.<span class="keyword">init</span>(named: <span class="string">"track_end"</span>)</span><br><span class="line">        locationString = <span class="string">""</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> locationString == <span class="string">"起点"</span> &#123;</span><br><span class="line">        view?.image = <span class="type">UIImage</span>.<span class="keyword">init</span>(named: <span class="string">"track_start"</span>)</span><br><span class="line">        locationString = <span class="string">""</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> locationString == <span class="string">"车"</span> &#123;</span><br><span class="line">        view?.image = <span class="type">UIImage</span>.<span class="keyword">init</span>(named: <span class="string">"track_car"</span>)</span><br><span class="line">        locationString = <span class="string">""</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> view</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取鹰眼数据</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">yingYan</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> entityName = <span class="type">String</span>(format: <span class="string">"%@%d"</span>, <span class="type">User</span>.sharedInstance.baiduEentityPrefix, sendCarOrder.vehicleId)</span><br><span class="line">    <span class="keyword">let</span> sop = <span class="type">BTKServiceOption</span>.<span class="keyword">init</span>(ak: <span class="type">BAIDU_AK</span>, mcode: <span class="type">BAIDU_MODE</span>, serviceID: <span class="type">UInt</span>(<span class="type">BAIDU_SERVICE_ID</span>), keepAlive: <span class="literal">false</span>)</span><br><span class="line">    <span class="type">BTKAction</span>.sharedInstance().initInfo(sop)</span><br><span class="line">    <span class="comment">//转化成时间戳</span></span><br><span class="line">    <span class="built_in">print</span>(chooseDateButton.titleLabel!.text!)</span><br><span class="line">    <span class="keyword">let</span> start = <span class="type">String</span>(format: <span class="string">"%@ 00:00:00"</span>, chooseDateButton.titleLabel!.text!)</span><br><span class="line">    <span class="keyword">let</span> end = <span class="type">String</span>(format: <span class="string">"%@ 23:59:59"</span>, chooseDateButton.titleLabel!.text!)</span><br><span class="line">    <span class="keyword">let</span> startTime = <span class="type">ZyDateFormatter</span>.baiduDateFormatter.date(from: start)?.timeIntervalSince1970</span><br><span class="line">    <span class="keyword">let</span> endTime = <span class="type">ZyDateFormatter</span>.baiduDateFormatter.date(from: end)?.timeIntervalSince1970</span><br><span class="line"></span><br><span class="line">    <span class="type">DispatchQueue</span>.global().async &#123;</span><br><span class="line">        <span class="keyword">let</span> option = <span class="type">BTKQueryTrackProcessOption</span>()</span><br><span class="line">        option.denoise = <span class="literal">true</span></span><br><span class="line">        option.vacuate = <span class="literal">true</span></span><br><span class="line">        option.mapMatch = <span class="literal">true</span></span><br><span class="line">        option.radiusThreshold = <span class="number">100</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> request = <span class="type">BTKQueryHistoryTrackRequest</span>.<span class="keyword">init</span>(entityName: entityName, startTime: <span class="type">UInt</span>(startTime!), endTime: <span class="type">UInt</span>(endTime!), isProcessed: <span class="literal">true</span>, processOption: option, supplementMode: <span class="type">BTKTrackProcessOptionSupplementMode</span>(rawValue: <span class="number">3</span>)!, outputCoordType: <span class="type">BTKCoordType</span>(rawValue: <span class="number">3</span>)!, sortType: <span class="type">BTKTrackSortType</span>(rawValue: <span class="number">1</span>)!, pageIndex: <span class="number">1</span>, pageSize: <span class="number">100</span>, serviceID: <span class="type">UInt</span>(<span class="type">BAIDU_SERVICE_ID</span>), tag: <span class="number">13</span>)</span><br><span class="line">    </span><br><span class="line">        <span class="type">BTKTrackAction</span>.sharedInstance().queryHistoryTrack(with: request, delegate: <span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>BTKTrackDelegate</strong> 代理方法中获得数据</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">onQueryHistoryTrack</span><span class="params">(<span class="number">_</span> response: Data!)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> json = <span class="type">JSON</span>(response)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> json[<span class="string">"status"</span>].int == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> startTime = json[<span class="string">"start_point"</span>][<span class="string">"loc_time"</span>].int!</span><br><span class="line">        <span class="keyword">let</span> endTime = json[<span class="string">"end_point"</span>][<span class="string">"loc_time"</span>].int!</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> duration = endTime - startTime</span><br><span class="line">        </span><br><span class="line">        totalTime = duration</span><br><span class="line">        <span class="keyword">self</span>.endTime = endTime</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> minute = duration/<span class="number">60</span></span><br><span class="line">        <span class="keyword">let</span> second = duration%<span class="number">60</span></span><br><span class="line">        </span><br><span class="line">        <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">            <span class="keyword">self</span>.durationLabel.text = <span class="type">String</span>(format:<span class="string">"%02d:%02d"</span>,minute, second)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//去掉经纬度为0的点</span></span><br><span class="line">        <span class="keyword">var</span> pointsWithoutZero = [<span class="type">JSON</span>]()</span><br><span class="line">        <span class="keyword">for</span> point <span class="keyword">in</span> json[<span class="string">"points"</span>].arrayValue &#123;</span><br><span class="line">            <span class="keyword">let</span> lat = point[<span class="string">"latitude"</span>].doubleValue</span><br><span class="line">            <span class="keyword">let</span> lon = point[<span class="string">"longitude"</span>].doubleValue</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> fabs(lat - <span class="number">0</span>) &lt; <span class="number">0.001</span> &amp;&amp; fabs(lon - <span class="number">0</span>) &lt; <span class="number">0.001</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">            pointsWithoutZero.append(point)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.points = pointsWithoutZero</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> locations = [<span class="type">CLLocationCoordinate2D</span>]()</span><br><span class="line">        <span class="keyword">var</span> minLat: <span class="type">CLLocationDegrees</span> = <span class="number">90.0</span></span><br><span class="line">        <span class="keyword">var</span> maxLat: <span class="type">CLLocationDegrees</span> = -<span class="number">90.0</span></span><br><span class="line">        <span class="keyword">var</span> minLon: <span class="type">CLLocationDegrees</span> = <span class="number">180.0</span></span><br><span class="line">        <span class="keyword">var</span> maxLon: <span class="type">CLLocationDegrees</span> = -<span class="number">180.0</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> point <span class="keyword">in</span> pointsWithoutZero &#123;</span><br><span class="line">            <span class="keyword">let</span> lat = point[<span class="string">"latitude"</span>].doubleValue</span><br><span class="line">            <span class="keyword">let</span> lon = point[<span class="string">"longitude"</span>].doubleValue</span><br><span class="line">            </span><br><span class="line">            minLat = <span class="built_in">min</span>(minLat, lat)</span><br><span class="line">            maxLat = <span class="built_in">max</span>(maxLat, lat)</span><br><span class="line">            minLon = <span class="built_in">min</span>(minLon, lon)</span><br><span class="line">            maxLon = <span class="built_in">max</span>(maxLon, lon)</span><br><span class="line">            </span><br><span class="line">            locations.append(<span class="type">CLLocationCoordinate2D</span>.<span class="keyword">init</span>(latitude: lat, longitude: lon))</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//生成轨迹线</span></span><br><span class="line">        <span class="keyword">let</span> polyline = <span class="type">BMKPolyline</span>.<span class="keyword">init</span>(coordinates: &amp;locations, <span class="built_in">count</span>: <span class="type">UInt</span>(locations.<span class="built_in">count</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取轨迹的中心点和经纬度范围，确定轨迹的经纬度区域</span></span><br><span class="line">        <span class="keyword">let</span> centerCoor = <span class="type">CLLocationCoordinate2DMake</span>((minLat + maxLat) * <span class="number">0.5</span>, (minLon + maxLon) * <span class="number">0.5</span>)</span><br><span class="line">        <span class="comment">// 经纬度范围乘以一个大于1的系数，以在绘制轨迹时留出边缘部分</span></span><br><span class="line">        <span class="keyword">var</span> viewSapn = <span class="type">BMKCoordinateSpan</span>()</span><br><span class="line">        viewSapn.latitudeDelta = (maxLat - minLat) * <span class="number">1.2</span></span><br><span class="line">        viewSapn.longitudeDelta = (maxLon - minLon) * <span class="number">1.2</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> viewRegion = <span class="type">BMKCoordinateRegion</span>()</span><br><span class="line">        viewRegion.center = centerCoor</span><br><span class="line">        viewRegion.span = viewSapn</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//回主线程绘制轨迹线</span></span><br><span class="line">        <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">            <span class="keyword">if</span> pointsWithoutZero.<span class="built_in">count</span> &gt; <span class="number">1</span> &#123;</span><br><span class="line">                <span class="comment">// 设定当前地图的显示范围</span></span><br><span class="line">                <span class="keyword">self</span>.mapView.setRegion(viewRegion, animated: <span class="literal">true</span>)</span><br><span class="line">                </span><br><span class="line">                <span class="comment">// 向地图窗口添加Overlay，需要实现BMKMapViewDelegate的-mapView:viewForOverlay:方法来生成标注对应的View</span></span><br><span class="line">                <span class="comment">//循环添加用户的起，终坐标</span></span><br><span class="line">                <span class="keyword">for</span> index <span class="keyword">in</span> [<span class="number">0</span>,<span class="number">1</span>] &#123;</span><br><span class="line">                    <span class="keyword">var</span> item = <span class="type">BMKPointAnnotation</span>()</span><br><span class="line">                    </span><br><span class="line">                    <span class="keyword">if</span> index == <span class="number">0</span> &#123;</span><br><span class="line">                        <span class="keyword">let</span> coor = <span class="type">CLLocationCoordinate2DMake</span>(pointsWithoutZero[<span class="number">0</span>][<span class="string">"latitude"</span>].doubleValue, pointsWithoutZero[<span class="number">0</span>][<span class="string">"longitude"</span>].doubleValue)</span><br><span class="line">                        item.coordinate = coor</span><br><span class="line">                        <span class="keyword">self</span>.mapView.centerCoordinate = coor</span><br><span class="line">                        <span class="keyword">self</span>.locationString = <span class="string">"起点"</span></span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">let</span> coor = <span class="type">CLLocationCoordinate2DMake</span>(pointsWithoutZero.last![<span class="string">"latitude"</span>].doubleValue, pointsWithoutZero.last![<span class="string">"longitude"</span>].doubleValue)</span><br><span class="line">                        item.coordinate = coor</span><br><span class="line">                        <span class="keyword">self</span>.mapView.centerCoordinate = coor</span><br><span class="line">                        <span class="keyword">self</span>.locationString = <span class="string">"终点"</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    </span><br><span class="line">                    <span class="keyword">self</span>.mapView.addAnnotation(item)</span><br><span class="line">                    </span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">self</span>.mapView.addOverlays([polyline!])</span><br><span class="line">                </span><br><span class="line">                </span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> alert = <span class="type">UIAlertController</span>.<span class="keyword">init</span>(title: <span class="string">"提示"</span>, message: <span class="string">"指定轨迹的轨迹点少于两个，无法绘制"</span>, preferredStyle: .alert)</span><br><span class="line">                alert.addAction(<span class="type">UIAlertAction</span>.<span class="keyword">init</span>(title: <span class="string">"取消"</span>, style: .cancel, handler: <span class="literal">nil</span>))</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">self</span>.present(alert, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>timer 绘制轨迹</p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">refreshMap</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.point == points.<span class="built_in">count</span> &#123;</span><br><span class="line">        timer?.invalidate()</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> annotation = <span class="type">BMKPointAnnotation</span>()</span><br><span class="line">        <span class="keyword">self</span>.mapView.removeAnnotations(<span class="keyword">self</span>.mapView.annotations)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> coor = <span class="type">CLLocationCoordinate2D</span>()</span><br><span class="line">        coor.latitude = points[point][<span class="string">"latitude"</span>].doubleValue</span><br><span class="line">        coor.longitude = points[point][<span class="string">"longitude"</span>].doubleValue</span><br><span class="line">        annotation.coordinate = coor</span><br><span class="line">        mapView.centerCoordinate = coor</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> point == <span class="number">0</span> &#123;</span><br><span class="line">            locationString = <span class="string">"起点"</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> point == points.<span class="built_in">count</span> - <span class="number">1</span>&#123;</span><br><span class="line">            locationString = <span class="string">"终点"</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            locationString = <span class="string">"车"</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> time = points[point][<span class="string">"loc_time"</span>].intValue</span><br><span class="line">        <span class="keyword">let</span> leftTime = endTime - time</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.durationLabel.text = <span class="type">String</span>(format:<span class="string">"%02d:%02d"</span>,leftTime/<span class="number">60</span>, leftTime%<span class="number">60</span>)</span><br><span class="line">        </span><br><span class="line">        progressView.progress = <span class="type">Float</span>(point) / <span class="type">Float</span>(points.<span class="built_in">count</span> - <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        mapView.addAnnotation(annotation)</span><br><span class="line">        mapView.selectAnnotation(annotation, animated: <span class="literal">true</span>)</span><br><span class="line">        mapView.showsUserLocation = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    point += <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/第三方/" rel="tag"># 第三方</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/08/insertion-sort/" rel="next" title="排序算法——插入排序">
+                <i class="fa fa-chevron-left"></i> 排序算法——插入排序
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/30/raspberry-pi-init/" rel="prev" title="Mac 无显示器安装树莓派 3b">
+                Mac 无显示器安装树莓派 3b <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lugick Wang</p>
+              <p class="site-description motion-element" itemprop="description">书山有路勤为径，学海无涯苦作舟。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导航选择"><span class="nav-number">2.</span> <span class="nav-text">导航选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#百度鹰眼"><span class="nav-number">3.</span> <span class="nav-text">百度鹰眼</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lugick Wang</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v6.5.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
