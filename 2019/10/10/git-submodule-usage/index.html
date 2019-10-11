@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Lugick Wang&#39;s Blog">
 <meta property="og:description" content="前言大概整理下 git submodule 的用法。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-11T09:11:40.466Z">
+<meta property="og:updated_time" content="2019-10-11T09:23:15.304Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git submodule 的使用">
 <meta name="twitter:description" content="前言大概整理下 git submodule 的用法。">
@@ -453,8 +453,8 @@
 <li>sourcetree 左侧 <strong>submodules</strong> , 双击 <strong>module-1</strong>，进行拉取。命令行操作为 <code>git submodule init</code> 初始化本地配置文件， <code>git submodule update</code> 更新 submodule</li>
 <li>如果 <strong>module-1</strong> 仓库有更新，双击 <strong>module-1</strong>，进行更新，<strong>HEAD</strong> 指向的即为 <strong>demo</strong> 所依赖的 <strong>module-1</strong> 版本。可以在本地 module-1仓库里进行 <strong>git chekout</strong> 指定 branch 或者 commit。</li>
 </ol>
-<h6 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h6><p>如果其它人在 demo 里的 module-1 进行了变更，但是并没有提交到远程的 module-1仓库，然后又把 demo push，就会把指向本地 module-1 的引用也提交到了远端。此时另外的人在 demo 里进行 <code>git submodule update</code> 时就会报错，找不到当时的引用。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">error: Server does not allow request <span class="keyword">for</span> unadvertised object 857a1126d7a1ad9f91449602f6bb09f8130b2a1d</span><br><span class="line"></span><br><span class="line">Fetched <span class="keyword">in</span> submodule path <span class="string">'module-1'</span>, but it did not contain 857a1126d7a1ad9f91449602f6bb09f8130b2a1d. Direct fetching of that commit failed.</span><br></pre></td></tr></table></figure>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>如果其它人在 demo 里的 module-1 进行了变更，但是并没有提交到远程的 module-1仓库，然后又把 demo push，就会把指向本地 module-1 的引用也提交到了远端。此时另外的人在 demo 里进行 <code>git submodule update</code> 时就会报错，找不到当时的引用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">error: Server does not allow request <span class="keyword">for</span> unadvertised object 857a1126d7a1ad9f91449602f6bb09f8130b2a1d</span><br><span class="line">Fetched <span class="keyword">in</span> submodule path <span class="string">'module-1'</span>, but it did not contain 857a1126d7a1ad9f91449602f6bb09f8130b2a1d. Direct fetching of that commit failed.</span><br></pre></td></tr></table></figure>
 <p>此时可以在 demo 下 <code>git log -l module-1</code> 查看 module-1 提交日志找到该人员将 demo  下的 module-1 提交。如果废弃上次提交的话可以重新 checkout 指定 module-1。</p>
 <h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>优点是可以使依赖关系简单明了，但是同样也会有缺点。每次在 demo 里执行 <code>git submodule update</code>  的时候，会获得一个分离的 HEAD 指向提交，容易丢失。例如在 demo 下执行 <code>git submodule update</code> 以后，在 <strong>module-1</strong> 里不创建分支直接进行提交，如果此时再在 demo 下执行 <code>git submodule update</code> 就会毫无提示的覆盖掉上次的提交。想要找到丢失的提交可以使用 <code>git reflog</code> . 因此建议在 module-1里新建分支后再进行操作。有两个问题：</p>
 <ol>
@@ -697,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">2.</span> <span class="nav-text">使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础用法"><span class="nav-number">2.1.</span> <span class="nav-text">基础用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#克隆一个带-submodule-的项目"><span class="nav-number">2.2.</span> <span class="nav-text">克隆一个带 submodule 的项目</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注意"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">注意</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点"><span class="nav-number">3.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">2.</span> <span class="nav-text">使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础用法"><span class="nav-number">2.1.</span> <span class="nav-text">基础用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#克隆一个带-submodule-的项目"><span class="nav-number">2.2.</span> <span class="nav-text">克隆一个带 submodule 的项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">2.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点"><span class="nav-number">3.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
 
           </div>
