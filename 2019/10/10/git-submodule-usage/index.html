@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="前言记录一下怎么用 YYLabel 显示表情并计算 Auto Layout 下的高度。">
-<meta name="keywords" content="第三方">
+  <meta name="description" content="前言大概整理下 git submodule 的用法。">
+<meta name="keywords" content="git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YYLabel 显示表情并计算 Auto Layout 下的高度">
-<meta property="og:url" content="https://www.lugick.com/2018/11/27/show-emotion-with-yylabel/index.html">
+<meta property="og:title" content="git submodule 的使用">
+<meta property="og:url" content="https://www.lugick.com/2019/10/10/git-submodule-usage/index.html">
 <meta property="og:site_name" content="Lugick Wang&#39;s Blog">
-<meta property="og:description" content="前言记录一下怎么用 YYLabel 显示表情并计算 Auto Layout 下的高度。">
+<meta property="og:description" content="前言大概整理下 git submodule 的用法。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-01T09:13:44.398Z">
+<meta property="og:updated_time" content="2019-10-11T09:11:40.466Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YYLabel 显示表情并计算 Auto Layout 下的高度">
-<meta name="twitter:description" content="前言记录一下怎么用 YYLabel 显示表情并计算 Auto Layout 下的高度。">
+<meta name="twitter:title" content="git submodule 的使用">
+<meta name="twitter:description" content="前言大概整理下 git submodule 的用法。">
 
 
 
 
 
 
-  <link rel="canonical" href="https://www.lugick.com/2018/11/27/show-emotion-with-yylabel/">
+  <link rel="canonical" href="https://www.lugick.com/2019/10/10/git-submodule-usage/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>YYLabel 显示表情并计算 Auto Layout 下的高度 | Lugick Wang's Blog</title>
+  <title>git submodule 的使用 | Lugick Wang's Blog</title>
   
 
 
@@ -352,7 +352,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.lugick.com/2018/11/27/show-emotion-with-yylabel/">
+    <link itemprop="mainEntityOfPage" href="https://www.lugick.com/2019/10/10/git-submodule-usage/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lugick Wang">
@@ -369,7 +369,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">YYLabel 显示表情并计算 Auto Layout 下的高度
+          <h1 class="post-title" itemprop="name headline">git submodule 的使用
               
             
           </h1>
@@ -394,7 +394,7 @@
                 
               
 
-              <time title="创建时间：2018-11-27 20:26:42" itemprop="dateCreated datePublished" datetime="2018-11-27T20:26:42+08:00">2018-11-27</time>
+              <time title="创建时间：2019-10-10 16:10:14" itemprop="dateCreated datePublished" datetime="2019-10-10T16:10:14+08:00">2019-10-10</time>
             
 
             
@@ -409,9 +409,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/11/27/show-emotion-with-yylabel/#comments" itemprop="discussionUrl">
+                <a href="/2019/10/10/git-submodule-usage/#comments" itemprop="discussionUrl">
                 
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/11/27/show-emotion-with-yylabel/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/10/git-submodule-usage/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -439,11 +439,36 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>记录一下怎么用 YYLabel 显示表情并计算 Auto Layout 下的高度。</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>大概整理下 git submodule 的用法。</p>
 <a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)awakeFromNib &#123;</span><br><span class="line">    [super awakeFromNib];</span><br><span class="line">    self.contentTextLabel.preferredMaxLayoutWidth = [[UIScreen mainScreen] bounds].size.width - 28 - 70 - 20*2;</span><br><span class="line">    // Initialization code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setMessage:(RTMMessage *)message &#123;</span><br><span class="line">    [<span class="keyword">super</span> setMessage:message];</span><br><span class="line">    RTMMessageTextObject * object = (RTMMessageTextObject *)message.contentObject;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> * text = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:object.content];</span><br><span class="line">    text.yy_font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">17</span>];</span><br><span class="line">    </span><br><span class="line">    YYTextSimpleEmoticonParser * parser = [YYTextSimpleEmoticonParser new];</span><br><span class="line">    parser.emoticonMapper = [RTMEmotionManager sharedInstance].emotionDict;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.contentTextLabel.attributedText = text;;</span><br><span class="line">    [parser parseText:text selectedRange:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line">    YYTextContainer * container = [YYTextContainer new];</span><br><span class="line">    container.size = <span class="built_in">CGSizeMake</span>(<span class="keyword">self</span>.contentTextLabel.preferredMaxLayoutWidth, <span class="built_in">CGFLOAT_MAX</span>);</span><br><span class="line">    YYTextLayout * layout = [YYTextLayout layoutWithContainer:container text:text];</span><br><span class="line">    <span class="keyword">self</span>.contentTextLabel.textLayout = layout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">+ (CGFloat)heightForMessage:(RTMMessage *)message &#123;</span><br><span class="line">    </span><br><span class="line">    static RTMSendTextCell * cell = nil;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        cell = [[NSBundle mainBundle] loadNibNamed:@&quot;RTMSendTextCell&quot; owner:nil options:nil][0];</span><br><span class="line">    &#125;);</span><br><span class="line">    RTMMessageTextObject * object = (RTMMessageTextObject *)message.contentObject;</span><br><span class="line"></span><br><span class="line">    NSMutableAttributedString * text = [[NSMutableAttributedString alloc] initWithString:object.content];</span><br><span class="line">    text.yy_font = [UIFont systemFontOfSize:17];</span><br><span class="line">    </span><br><span class="line">    YYTextSimpleEmoticonParser * parser = [YYTextSimpleEmoticonParser new];</span><br><span class="line">    parser.emoticonMapper = [RTMEmotionManager sharedInstance].emotionDict;</span><br><span class="line">    </span><br><span class="line">    cell.contentTextLabel.attributedText = text;;</span><br><span class="line">    [parser parseText:text selectedRange:nil];</span><br><span class="line">    </span><br><span class="line">    YYTextContainer * container = [YYTextContainer new];</span><br><span class="line">    container.size = CGSizeMake(cell.contentTextLabel.preferredMaxLayoutWidth, CGFLOAT_MAX);</span><br><span class="line">    YYTextLayout * layout = [YYTextLayout layoutWithContainer:container text:text];</span><br><span class="line">    message.cellHeight = layout.textBoundingSize.height;</span><br><span class="line">    return message.cellHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>在一个项目中，需要使用其它项目，或者想把一些模块抽离出来成为公共模块。除了使用 pod 以外，还可以使用 git submodule 来达成目的。本次主要介绍 <strong>sourcetree</strong> 里如何进行操作。</p>
+<h4 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h4><p>现有两个项目 submodule-demo 和 module-1, 想在 demo 里使用 module-1。</p>
+<ol>
+<li>clone demo</li>
+<li><strong>Repository</strong> -&gt; <strong>Add submodule</strong>, <strong>Source Path/URL</strong> 中填入 demo 的仓库地址，<strong>Local Relative Path</strong> 选择本地 demo 目录下的 <strong>module-1</strong> 文件夹，然后点击 <strong>OK</strong> . 生成文件 <strong>.gitmodules</strong> 和 subproject <strong>module-1</strong> </li>
+<li><code>git commit</code> &amp; <code>git push</code></li>
+</ol>
+<h4 id="克隆一个带-submodule-的项目"><a href="#克隆一个带-submodule-的项目" class="headerlink" title="克隆一个带 submodule 的项目"></a>克隆一个带 submodule 的项目</h4><ol>
+<li>clone demo, 有 <strong>module-1</strong> 文件夹但是是空的</li>
+<li>sourcetree 左侧 <strong>submodules</strong> , 双击 <strong>module-1</strong>，进行拉取。命令行操作为 <code>git submodule init</code> 初始化本地配置文件， <code>git submodule update</code> 更新 submodule</li>
+<li>如果 <strong>module-1</strong> 仓库有更新，双击 <strong>module-1</strong>，进行更新，<strong>HEAD</strong> 指向的即为 <strong>demo</strong> 所依赖的 <strong>module-1</strong> 版本。可以在本地 module-1仓库里进行 <strong>git chekout</strong> 指定 branch 或者 commit。</li>
+</ol>
+<h6 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h6><p>如果其它人在 demo 里的 module-1 进行了变更，但是并没有提交到远程的 module-1仓库，然后又把 demo push，就会把指向本地 module-1 的引用也提交到了远端。此时另外的人在 demo 里进行 <code>git submodule update</code> 时就会报错，找不到当时的引用。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">error: Server does not allow request <span class="keyword">for</span> unadvertised object 857a1126d7a1ad9f91449602f6bb09f8130b2a1d</span><br><span class="line"></span><br><span class="line">Fetched <span class="keyword">in</span> submodule path <span class="string">'module-1'</span>, but it did not contain 857a1126d7a1ad9f91449602f6bb09f8130b2a1d. Direct fetching of that commit failed.</span><br></pre></td></tr></table></figure>
+<p>此时可以在 demo 下 <code>git log -l module-1</code> 查看 module-1 提交日志找到该人员将 demo  下的 module-1 提交。如果废弃上次提交的话可以重新 checkout 指定 module-1。</p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>优点是可以使依赖关系简单明了，但是同样也会有缺点。每次在 demo 里执行 <code>git submodule update</code>  的时候，会获得一个分离的 HEAD 指向提交，容易丢失。例如在 demo 下执行 <code>git submodule update</code> 以后，在 <strong>module-1</strong> 里不创建分支直接进行提交，如果此时再在 demo 下执行 <code>git submodule update</code> 就会毫无提示的覆盖掉上次的提交。想要找到丢失的提交可以使用 <code>git reflog</code> . 因此建议在 module-1里新建分支后再进行操作。有两个问题：</p>
+<ol>
+<li><p>如果在有 module-1 的分支上本地提交，切换回没有 module-1 的分支删除 module-1文件夹，再切换回含有 module-1 的分支，会造成 module-1的 HEAD 混乱，需要重新 checkout。</p>
+</li>
+<li><p>如果在切换回没有 module-1 的分支上后，对 <strong>module-1</strong> 进行了修改，当前分支不会显示任何提交，切换回含有 module-1 的分支也不会显示有任何提交。但是对该分支 push 以后，会造成 <code>git submodule update</code> 的错误。</p>
+</li>
+<li><p>demo 在新建分支 branch1 上添加 module-1  以后，如果再切换回不带 module-1 的分支，仍然会有一个 module-1 的文件夹。此时要把 module-1 目录删除，当切换回带有 module-1 的分支时要重新 clone。</p>
+</li>
+<li><p>最后一个问题是如果想把子目录改为 submodule 的形式，需要以下操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached module-1</span><br><span class="line">rm -rf module-1</span><br><span class="line">git submodule add module-1.git module-1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://git-scm.com/book/zh/v1/Git-工具-子模块" target="_blank" rel="noopener">https://git-scm.com/book/zh/v1/Git-工具-子模块</a></p>
 
       
     </div>
@@ -467,7 +492,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/第三方/" rel="tag"># 第三方</a>
+            <a href="/tags/git/" rel="tag"># git</a>
           
         </div>
       
@@ -480,8 +505,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/04/play-rtmp-stream-with-ijkplayer/" rel="next" title="集成 ijkplayer">
-                <i class="fa fa-chevron-left"></i> 集成 ijkplayer
+              <a href="/2019/04/28/reading-effective-2-0/" rel="next" title="《effective-2.0》 学习笔记">
+                <i class="fa fa-chevron-left"></i> 《effective-2.0》 学习笔记
               </a>
             
           </div>
@@ -489,10 +514,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/02/backup-hexo-theme-with-git-submodule/" rel="prev" title="使用 git submodule 备份 hexo 的主题">
-                使用 git submodule 备份 hexo 的主题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -676,7 +697,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">2.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用场景"><span class="nav-number">2.</span> <span class="nav-text">使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础用法"><span class="nav-number">2.1.</span> <span class="nav-text">基础用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#克隆一个带-submodule-的项目"><span class="nav-number">2.2.</span> <span class="nav-text">克隆一个带 submodule 的项目</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#注意"><span class="nav-number">2.2.0.1.</span> <span class="nav-text">注意</span></a></li></ol></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点"><span class="nav-number">3.</span> <span class="nav-text">优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></div>
             
 
           </div>
@@ -831,9 +852,9 @@
   
     <script type="text/javascript">
       var disqus_config = function () {
-        this.page.url = 'https://www.lugick.com/2018/11/27/show-emotion-with-yylabel/';
-        this.page.identifier = '2018/11/27/show-emotion-with-yylabel/';
-        this.page.title = 'YYLabel 显示表情并计算 Auto Layout 下的高度';
+        this.page.url = 'https://www.lugick.com/2019/10/10/git-submodule-usage/';
+        this.page.identifier = '2019/10/10/git-submodule-usage/';
+        this.page.title = 'git submodule 的使用';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');
