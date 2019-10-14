@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="Lugick Wang&#39;s Blog">
 <meta property="og:description" content="前言大概整理下 git submodule 的用法。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-11T09:23:15.304Z">
+<meta property="og:updated_time" content="2019-10-14T02:43:16.263Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git submodule 的使用">
 <meta name="twitter:description" content="前言大概整理下 git submodule 的用法。">
@@ -464,7 +464,8 @@
 </li>
 <li><p>demo 在新建分支 branch1 上添加 module-1  以后，如果再切换回不带 module-1 的分支，仍然会有一个 module-1 的文件夹。此时要把 module-1 目录删除，当切换回带有 module-1 的分支时要重新 clone。</p>
 </li>
-<li><p>最后一个问题是如果想把子目录改为 submodule 的形式，需要以下操作</p>
+<li><p>最后一个问题是如果想把子目录改为 submodule 的形式，需要以下操作。</p>
+<p><strong>要先把 module-1 备份提交git！</strong> <strong>要先把 module-1 备份提交git！</strong> <strong>要先把 module-1 备份提交git！</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git rm -r --cached module-1</span><br><span class="line">rm -rf module-1</span><br><span class="line">git submodule add module-1.git module-1</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
