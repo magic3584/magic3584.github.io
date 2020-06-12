@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"www.lugick.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言提交自己代码到 CocoaPods 的步骤">
+  <meta name="description" content="前言项目中用到了录制音频转换成 mp3 后上传，网上查的都是 OC 写的，这里用的 swift 4.2，记录一下。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="提交代码到CocoaPods">
-<meta property="og:url" content="https://www.lugick.com/2016/09/18/push-to-cocoaPods/index.html">
+<meta property="og:title" content="用 lame 把 wav 转换成 mp3">
+<meta property="og:url" content="https://www.lugick.com/2020/06/12/convert-wav-to-mp3-with-lame/index.html">
 <meta property="og:site_name" content="Lugick Wang&#39;s Blog">
-<meta property="og:description" content="前言提交自己代码到 CocoaPods 的步骤">
+<meta property="og:description" content="前言项目中用到了录制音频转换成 mp3 后上传，网上查的都是 OC 写的，这里用的 swift 4.2，记录一下。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2016-09-18T07:32:48.000Z">
-<meta property="article:modified_time" content="2018-06-09T07:37:07.987Z">
+<meta property="article:published_time" content="2020-06-12T06:48:34.000Z">
+<meta property="article:modified_time" content="2020-06-12T07:05:49.990Z">
 <meta property="article:author" content="Lugick Wang">
-<meta property="article:tag" content="CocoaPods">
+<meta property="article:tag" content="音视频">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.lugick.com/2016/09/18/push-to-cocoaPods/">
+<link rel="canonical" href="https://www.lugick.com/2020/06/12/convert-wav-to-mp3-with-lame/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>提交代码到CocoaPods | Lugick Wang's Blog</title>
+  <title>用 lame 把 wav 转换成 mp3 | Lugick Wang's Blog</title>
   
 
 
@@ -166,7 +166,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.lugick.com/2016/09/18/push-to-cocoaPods/">
+    <link itemprop="mainEntityOfPage" href="https://www.lugick.com/2020/06/12/convert-wav-to-mp3-with-lame/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -179,7 +179,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          提交代码到CocoaPods
+          用 lame 把 wav 转换成 mp3
         </h1>
 
         <div class="post-meta">
@@ -189,7 +189,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2016-09-18 15:32:48" itemprop="dateCreated datePublished" datetime="2016-09-18T15:32:48+08:00">2016-09-18</time>
+              <time title="创建时间：2020-06-12 14:48:34" itemprop="dateCreated datePublished" datetime="2020-06-12T14:48:34+08:00">2020-06-12</time>
             </span>
 
           
@@ -201,8 +201,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2016/09/18/push-to-cocoaPods/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/09/18/push-to-cocoaPods/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/06/12/convert-wav-to-mp3-with-lame/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/12/convert-wav-to-mp3-with-lame/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -217,18 +217,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>提交自己代码到 CocoaPods 的步骤<br><a id="more"></a></p>
-<h3 id="注册trunk"><a href="#注册trunk" class="headerlink" title="注册trunk"></a>注册trunk</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod trunk register emailAddress <span class="string">'username'</span> --verbose</span><br></pre></td></tr></table></figure>
-<p>点击邮件链接完成注册。</p>
-<p><code>pod trunk me</code> 查看是否注册成功。</p>
-<h3 id="创建PodSpec"><a href="#创建PodSpec" class="headerlink" title="创建PodSpec"></a>创建PodSpec</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod spec create LWChannelManager</span><br></pre></td></tr></table></figure>
-<h3 id="修改-PodSpec"><a href="#修改-PodSpec" class="headerlink" title="修改 PodSpec"></a>修改 PodSpec</h3><p>修改LWChannelManager.podspec文件内容。需要注意 <strong> s.source_files</strong> 是相对于 <strong>.podspec</strong> 的路径。</p>
-<h3 id="添加LICENSE"><a href="#添加LICENSE" class="headerlink" title="添加LICENSE"></a>添加LICENSE</h3><h3 id="提交github"><a href="#提交github" class="headerlink" title="提交github"></a>提交github</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'message'</span></span><br><span class="line">git tag <span class="string">'1.0.0'</span></span><br><span class="line">git push --tags</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<h3 id="Pod验证"><a href="#Pod验证" class="headerlink" title="Pod验证"></a>Pod验证</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set the new version to <span class="number">1.0</span>.<span class="number">0</span></span><br><span class="line">set the new tag to <span class="number">1.0</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod lib lint</span><br></pre></td></tr></table></figure>
-<p>如果正常的话提示验证通过。</p>
-<h3 id="提交CocoaPods"><a href="#提交CocoaPods" class="headerlink" title="提交CocoaPods"></a>提交CocoaPods</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod trunk push LWChannelManager.podspec</span><br></pre></td></tr></table></figure>
-<h3 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h3><p>重复步骤 <strong>修改 PodSpec</strong> 到 <strong>提交 CocoaPods</strong></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>项目中用到了录制音频转换成 mp3 后上传，网上查的都是 OC 写的，这里用的 swift 4.2，记录一下。</p>
+<a id="more"></a>
+<h3 id="录制"><a href="#录制" class="headerlink" title="录制"></a>录制</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">recorder = <span class="keyword">try</span> <span class="type">AVAudioRecorder</span>(url: filePathURL, settings: [</span><br><span class="line">                <span class="type">AVFormatIDKey</span>: <span class="type">Int</span>(kAudioFormatLinearPCM),</span><br><span class="line">                <span class="type">AVSampleRateKey</span>: <span class="number">44100</span>,</span><br><span class="line">                <span class="type">AVNumberOfChannelsKey</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="type">AVLinearPCMBitDepthKey</span>: <span class="number">16</span>,</span><br><span class="line">                <span class="type">AVEncoderAudioQualityKey</span>:<span class="type">AVAudioQuality</span>.high.rawValue</span><br><span class="line">            ])</span><br></pre></td></tr></table></figure>
+<h3 id="编译-lame-静态库"><a href="#编译-lame-静态库" class="headerlink" title="编译 lame 静态库"></a>编译 lame 静态库</h3><p><a href="https://github.com/wuqiong/mp3lame-for-iOS" target="_blank" rel="noopener">https://github.com/wuqiong/mp3lame-for-iOS</a></p>
+<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> read = <span class="number">0</span></span><br><span class="line"><span class="keyword">var</span> write = <span class="number">0</span></span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> pcm = fopen(wavPath, <span class="string">"rb"</span>)</span><br><span class="line">fseek(pcm, <span class="number">4</span>*<span class="number">1024</span>, <span class="type">SEEK_CUR</span>)</span><br><span class="line"><span class="keyword">let</span> mp3 = fopen(mp3Path, <span class="string">"wb+"</span>)</span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> pcmSize = <span class="number">8192</span></span><br><span class="line"><span class="keyword">let</span> mp3Size = <span class="number">8192</span></span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> pcmBuffer = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">Int16</span>&gt;.allocate(capacity: <span class="type">Int</span>(pcmSize*<span class="number">2</span>))</span><br><span class="line"><span class="keyword">let</span> mp3Buffer = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">UInt8</span>&gt;.allocate(capacity: <span class="type">Int</span>(mp3Size))</span><br><span class="line"></span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> lame = lame_init()</span><br><span class="line">lame_set_num_channels(lame, <span class="number">1</span>)</span><br><span class="line"><span class="comment">//                lame_set_mode(lame, MONO)</span></span><br><span class="line">lame_set_in_samplerate(lame, <span class="number">22050</span>)</span><br><span class="line"><span class="comment">//                lame_set_brate(lame, rate)</span></span><br><span class="line">lame_set_VBR(lame, vbr_default)</span><br><span class="line">lame_init_params(lame)</span><br><span class="line">            </span><br><span class="line"><span class="keyword">repeat</span> &#123;</span><br><span class="line">		read = fread(pcmBuffer, <span class="number">2</span>*<span class="type">MemoryLayout</span>&lt;<span class="type">Int16</span>&gt;.size, pcmSize, pcm)</span><br><span class="line">		<span class="keyword">if</span> read == <span class="number">0</span> &#123;</span><br><span class="line">				write = <span class="type">Int</span>(lame_encode_flush(lame, mp3Buffer, <span class="type">Int32</span>(mp3Size)))</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				write = <span class="type">Int</span>(lame_encode_buffer_interleaved(lame, pcmBuffer, <span class="type">Int32</span>(read), mp3Buffer, <span class="type">Int32</span>(mp3Size)))</span><br><span class="line">		&#125;</span><br><span class="line">                </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">"write\(write)"</span>)</span><br><span class="line">		fwrite(mp3Buffer, write, <span class="number">1</span>, mp3)</span><br><span class="line">                </span><br><span class="line">&#125; <span class="keyword">while</span> read != <span class="number">0</span></span><br><span class="line"><span class="comment">//                lame_mp3_tags_fid(lame, mp3)</span></span><br><span class="line">lame_close(lame)</span><br><span class="line">fclose(mp3)</span><br><span class="line">fclose(pcm)</span><br></pre></td></tr></table></figure>
+<h3 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h3><p>录制时候采样率为 44100，转换时如果设置 44100 的采样率，发现会播放两倍速，减半成 22050 以后正常，这个等我学习点理论知识以后再来补充。</p>
 
     </div>
 
@@ -238,7 +232,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/CocoaPods/" rel="tag"># CocoaPods</a>
+              <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" rel="tag"># 音视频</a>
           </div>
 
         
@@ -247,13 +241,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2016/09/08/print-html-in-php/" rel="prev" title="PHP打印html">
-      <i class="fa fa-chevron-left"></i> PHP打印html
+    <a href="/2020/06/11/xcode-config-in-pod/" rel="prev" title="在本地 pod 里修改工程和 pod 的预编译标记">
+      <i class="fa fa-chevron-left"></i> 在本地 pod 里修改工程和 pod 的预编译标记
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2016/09/20/change-git-control/" rel="next" title="修改git路径">
-      修改git路径 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -319,7 +310,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册trunk"><span class="nav-number">2.</span> <span class="nav-text">注册trunk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建PodSpec"><span class="nav-number">3.</span> <span class="nav-text">创建PodSpec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改-PodSpec"><span class="nav-number">4.</span> <span class="nav-text">修改 PodSpec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加LICENSE"><span class="nav-number">5.</span> <span class="nav-text">添加LICENSE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交github"><span class="nav-number">6.</span> <span class="nav-text">提交github</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pod验证"><span class="nav-number">7.</span> <span class="nav-text">Pod验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交CocoaPods"><span class="nav-number">8.</span> <span class="nav-text">提交CocoaPods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改代码"><span class="nav-number">9.</span> <span class="nav-text">修改代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#录制"><span class="nav-number">2.</span> <span class="nav-text">录制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译-lame-静态库"><span class="nav-number">3.</span> <span class="nav-text">编译 lame 静态库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换"><span class="nav-number">4.</span> <span class="nav-text">转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遗留问题"><span class="nav-number">5.</span> <span class="nav-text">遗留问题</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -446,9 +437,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://www.lugick.com/2016/09/18/push-to-cocoaPods/";
-    this.page.identifier = "2016/09/18/push-to-cocoaPods/";
-    this.page.title = "提交代码到CocoaPods";
+    this.page.url = "https://www.lugick.com/2020/06/12/convert-wav-to-mp3-with-lame/";
+    this.page.identifier = "2020/06/12/convert-wav-to-mp3-with-lame/";
+    this.page.title = "用 lame 把 wav 转换成 mp3";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
