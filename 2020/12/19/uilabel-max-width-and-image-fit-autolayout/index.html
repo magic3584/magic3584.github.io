@@ -20,20 +20,23 @@
     var CONFIG = {"hostname":"www.lugick.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言买了个 树莓派 3b，折腾下。">
+  <meta name="description" content="前言聊天页面的场景，UILabel 自适应宽高且有最大宽度，底部是一个 UIImageView 并且父 view 不能被 UIImageView 充满，要以 UILabel 为准。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac 无显示器安装树莓派 3b">
-<meta property="og:url" content="https://www.lugick.com/2018/01/30/raspberry-pi-init/index.html">
+<meta property="og:title" content="UILabel 自适应宽高并设置最大宽度，并主导父 view 的约束">
+<meta property="og:url" content="https://www.lugick.com/2020/12/19/uilabel-max-width-and-image-fit-autolayout/index.html">
 <meta property="og:site_name" content="Lugick Wang&#39;s Blog">
-<meta property="og:description" content="前言买了个 树莓派 3b，折腾下。">
+<meta property="og:description" content="前言聊天页面的场景，UILabel 自适应宽高且有最大宽度，底部是一个 UIImageView 并且父 view 不能被 UIImageView 充满，要以 UILabel 为准。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-01-30T07:10:36.000Z">
-<meta property="article:modified_time" content="2018-06-09T07:37:07.987Z">
+<meta property="og:image" content="https://www.lugick.com/images/chat_hierarchy.png">
+<meta property="og:image" content="https://www.lugick.com/images/chat_result.jpeg">
+<meta property="article:published_time" content="2020-12-19T10:06:53.000Z">
+<meta property="article:modified_time" content="2020-12-19T10:33:59.694Z">
 <meta property="article:author" content="Lugick Wang">
-<meta property="article:tag" content="Raspberry Pi">
+<meta property="article:tag" content="autolayout">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.lugick.com/images/chat_hierarchy.png">
 
-<link rel="canonical" href="https://www.lugick.com/2018/01/30/raspberry-pi-init/">
+<link rel="canonical" href="https://www.lugick.com/2020/12/19/uilabel-max-width-and-image-fit-autolayout/">
 
 
 <script id="page-configurations">
@@ -46,7 +49,7 @@
   };
 </script>
 
-  <title>Mac 无显示器安装树莓派 3b | Lugick Wang's Blog</title>
+  <title>UILabel 自适应宽高并设置最大宽度，并主导父 view 的约束 | Lugick Wang's Blog</title>
   
 
 
@@ -166,7 +169,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.lugick.com/2018/01/30/raspberry-pi-init/">
+    <link itemprop="mainEntityOfPage" href="https://www.lugick.com/2020/12/19/uilabel-max-width-and-image-fit-autolayout/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -179,7 +182,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Mac 无显示器安装树莓派 3b
+          UILabel 自适应宽高并设置最大宽度，并主导父 view 的约束
         </h1>
 
         <div class="post-meta">
@@ -189,7 +192,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-30 15:10:36" itemprop="dateCreated datePublished" datetime="2018-01-30T15:10:36+08:00">2018-01-30</time>
+              <time title="创建时间：2020-12-19 18:06:53" itemprop="dateCreated datePublished" datetime="2020-12-19T18:06:53+08:00">2020-12-19</time>
             </span>
 
           
@@ -201,8 +204,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2018/01/30/raspberry-pi-init/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/01/30/raspberry-pi-init/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2020/12/19/uilabel-max-width-and-image-fit-autolayout/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/12/19/uilabel-max-width-and-image-fit-autolayout/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -217,39 +220,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>买了个 树莓派 3b，折腾下。<br><a id="more"></a></p>
-<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
-<li>树莓派 3b</li>
-<li>SD 卡、读卡器</li>
-<li>一根网线</li>
-</ul>
-<h3 id="安装系统"><a href="#安装系统" class="headerlink" title="安装系统"></a>安装系统</h3><ol>
-<li><p>磁盘工具——抹掉——MS-DOS(FAT)——抹掉</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>聊天页面的场景，UILabel 自适应宽高且有最大宽度，底部是一个 UIImageView 并且父 view 不能被 UIImageView 充满，要以 UILabel 为准。</p>
+<a id="more"></a>
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p>先上要求和最后的效果图</p>
+<p><img src="/images/chat_hierarchy.png" alt="要求"></p>
+<p><img src="/images/chat_result.jpeg" alt="结果"></p>
+<h3 id="处理方法"><a href="#处理方法" class="headerlink" title="处理方法"></a>处理方法</h3><ol>
+<li><p><strong>containerView</strong> add subView @[label, imageView]</p>
 </li>
-<li><p>终端 <code>df-h</code> 查看挂载，SD 卡假设为 <strong>/dev/disk2s1</strong></p>
+<li><p>设置 label 的约束，一定要设置最大宽度 <strong>preferredMaxLayoutWidth</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">self.messageLabel.preferredMaxLayoutWidth &#x3D; 170;&#x2F;&#x2F;很重要！！！</span><br><span class="line">[self.messageLabel mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">    make.left.equalTo(@8);</span><br><span class="line">    make.right.equalTo(@-13);</span><br><span class="line">    make.top.equalTo(@5);</span><br><span class="line">    make.bottom.equalTo(@-5);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>卸载 SD 卡 <code>diskutil unmount /dev/disk2s1</code></p>
+<li><p>设置 imageView 相对于 label 的约束，一定要设置 <strong>ContentCompressionResistance</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[self.chatBgIm mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">     make.left.equalTo(self.messageLabel.mas_left).offset(-8);</span><br><span class="line">     make.top.equalTo(self.messageLabel).offset(-5);</span><br><span class="line">     make.right.equalTo(self.messageLabel).offset(13);</span><br><span class="line">     make.bottom.equalTo(self.messageLabel).offset(5);</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[_chatBgIm setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];</span><br></pre></td></tr></table></figure>
 </li>
-<li><p><code>diskutil list</code> 确认 <strong>/dev/disk2</strong> 下的 <strong>disk2</strong></p>
+<li><p>设置 containerView 的约束，左边大于等于 0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[self.chatBgView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">     make.top.equalTo(self.nameLabel.mas_bottom).offset(4);</span><br><span class="line">     make.left.greaterThanOrEqualTo(@0);</span><br><span class="line">     make.right.equalTo(self.avatarIm.mas_left).offset(-10);</span><br><span class="line">     make.bottom.equalTo(@-10);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>官网下载镜像，写入 SD 卡 <code>sudo dd bs=4m if=2017-11-29-raspbian-stretch-lite.img of=/dev/disk2</code>。 2G 镜像几分钟， 4G 完整镜像十几分钟。查看进度可以另起终端 <code>sudo kill -INFO $(pgrep ^dd)</code></p>
-</li>
-<li><p>插一下，现在树莓派默认不开启 ssh，写入成功后在 <strong>/boot/</strong> 创建无后缀的文件名为 <strong>ssh</strong> 的文件</p>
-</li>
-<li><p>设置自动连接 Wi-Fi<br>在 <strong>/boot</strong>/  下创建 <strong>wpa_supplicant.conf</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">country&#x3D;CN</span><br><span class="line">ctrl_interface&#x3D;DIR&#x3D;&#x2F;var&#x2F;run&#x2F;wpa_supplicant GROUP&#x3D;netdev</span><br><span class="line">update_config&#x3D;1</span><br><span class="line"></span><br><span class="line">network&#x3D;&#123;</span><br><span class="line">    scan_ssid&#x3D;1#如果隐藏了 SSID 这行必须加</span><br><span class="line">    ssid&#x3D;&quot;ssid&quot;</span><br><span class="line">    psk&#x3D;&quot;password&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>需要注意的是从 <strong>3b+</strong> 开始才支持 5G Wi-Fi，我的 3b 一直连不上就是这个原因。</p>
-</li>
-<li><p><code>diskutil unmountDisk /dev/disk2</code></p>
-</li>
-<li><p>内存卡插进树莓派，开机</p>
+<li><p>Cmd + R</p>
 </li>
 </ol>
-<h3 id="ssh-登录系统"><a href="#ssh-登录系统" class="headerlink" title="ssh 登录系统"></a>ssh 登录系统</h3><ol>
-<li>连接路由器得到树莓派 ip</li>
-<li>网线连接树莓派和 Mac， <code>arp -a</code> 找到树莓派 ip，比较靠前 <strong>192.168.2.XXX</strong></li>
-</ol>
-<p>拿到 ip 后 ssh 登录树莓派 <code>ssh pi@192.168.2.3</code> 默认密码 <strong>raspberry</strong></p>
 
     </div>
 
@@ -259,7 +249,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Raspberry-Pi/" rel="tag"># Raspberry Pi</a>
+              <a href="/tags/autolayout/" rel="tag"># autolayout</a>
           </div>
 
         
@@ -268,13 +258,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2018/01/16/maps-and-track/" rel="prev" title="地图导航和百度鹰眼轨迹播放">
-      <i class="fa fa-chevron-left"></i> 地图导航和百度鹰眼轨迹播放
+    <a href="/2020/06/12/convert-wav-to-mp3-with-lame/" rel="prev" title="用 lame 把 wav 转换成 mp3">
+      <i class="fa fa-chevron-left"></i> 用 lame 把 wav 转换成 mp3
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2018/02/24/shell-sort/" rel="next" title="排序算法——希尔排序">
-      排序算法——希尔排序 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -340,7 +327,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备"><span class="nav-number">2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装系统"><span class="nav-number">3.</span> <span class="nav-text">安装系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh-登录系统"><span class="nav-number">4.</span> <span class="nav-text">ssh 登录系统</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果"><span class="nav-number">2.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理方法"><span class="nav-number">3.</span> <span class="nav-text">处理方法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -467,9 +454,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://www.lugick.com/2018/01/30/raspberry-pi-init/";
-    this.page.identifier = "2018/01/30/raspberry-pi-init/";
-    this.page.title = "Mac 无显示器安装树莓派 3b";
+    this.page.url = "https://www.lugick.com/2020/12/19/uilabel-max-width-and-image-fit-autolayout/";
+    this.page.identifier = "2020/12/19/uilabel-max-width-and-image-fit-autolayout/";
+    this.page.title = "UILabel 自适应宽高并设置最大宽度，并主导父 view 的约束";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
