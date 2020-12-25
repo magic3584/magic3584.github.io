@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言Mac 上推 rtmp 流， iOS 集成 ijkPlayer 播放。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-07-04T01:31:01.000Z">
-<meta property="article:modified_time" content="2018-11-24T02:01:41.538Z">
+<meta property="article:modified_time" content="2020-12-25T05:48:11.226Z">
 <meta property="article:author" content="Lugick Wang">
 <meta property="article:tag" content="rtmp">
 <meta name="twitter:card" content="summary">
@@ -223,7 +223,7 @@
 <li><p>先把 <a href="https://github.com/Bilibili/ijkplayer" target="_blank" rel="noopener">ijkPlayerDemo</a> 跑起来再说</p>
 <p>按照 <strong>README</strong> 里的 <strong>Before Build</strong> 和 <strong>Build iOS</strong> 。在 <code>./compile-ffmpeg.sh all</code> 时会报错</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;libavutil&#x2F;arm&#x2F;asm.S:50:9: error: unknown directive</span><br><span class="line">.arch armv7-a</span><br></pre></td></tr></table></figure>
-<p>解决办法 <a href="https://github.com/Bilibili/ijkplayer/issues/4150#issuecomment-378103274" target="_blank" rel="noopener">issues</a></p>
+<p>解决办法 <a href="https://github.com/bilibili/ijkplayer/issues/4150#issuecomment-445439096" target="_blank" rel="noopener">issues</a></p>
 </li>
 <li><p>打包静态库 <strong>IJKMediaFramework</strong></p>
 <p>打开 <strong>IJKMediaPlayer.xcodeproj</strong> ，scheme 选择 <strong>IJKMediaFramework——Run——Info——Build Configuration——Release</strong> ，选择模拟器 build，切真机再 build 会报错</p>
