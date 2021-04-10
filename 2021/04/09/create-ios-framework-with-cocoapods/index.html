@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.lugick.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言最近在写 SDK，由于依赖了第三方库，同时自己也要分发出去，所以总结下基于 CocoaPods 制作 framework 的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于 CocoaPods 制作 iOS framework 并提交">
+<meta property="og:url" content="https://www.lugick.com/2021/04/09/create-ios-framework-with-cocoapods/index.html">
+<meta property="og:site_name" content="Lugick Wang&#39;s Blog">
+<meta property="og:description" content="前言最近在写 SDK，由于依赖了第三方库，同时自己也要分发出去，所以总结下基于 CocoaPods 制作 framework 的问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.lugick.com/images/cocoapods-framework-1.png">
+<meta property="og:image" content="https://www.lugick.com/images/cocoapods-framework-2.png">
+<meta property="og:image" content="https://www.lugick.com/images/cocoapods-framework-3.png">
+<meta property="og:image" content="https://www.lugick.com/images/cocoapods-framework-error.png">
+<meta property="article:published_time" content="2021-04-09T12:12:16.000Z">
+<meta property="article:modified_time" content="2021-04-10T07:49:59.823Z">
+<meta property="article:author" content="Lugick Wang">
+<meta property="article:tag" content="CocoaPods">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.lugick.com/images/cocoapods-framework-1.png">
+
+<link rel="canonical" href="https://www.lugick.com/2021/04/09/create-ios-framework-with-cocoapods/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于 CocoaPods 制作 iOS framework 并提交 | Lugick Wang's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lugick Wang's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-other">
+
+    <a href="/other/" rel="section"><i class="fa fa-folder fa-fw"></i>其他</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.lugick.com/2021/04/09/create-ios-framework-with-cocoapods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Lugick Wang">
+      <meta itemprop="description" content="书山有路勤为径，学海无涯苦作舟。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lugick Wang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于 CocoaPods 制作 iOS framework 并提交
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-09 20:12:16" itemprop="dateCreated datePublished" datetime="2021-04-09T20:12:16+08:00">2021-04-09</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/04/09/create-ios-framework-with-cocoapods/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/04/09/create-ios-framework-with-cocoapods/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近在写 SDK，由于依赖了第三方库，同时自己也要分发出去，所以总结下基于 CocoaPods 制作 framework 的问题。</p>
+<a id="more"></a>
+<h3 id="SDK-依赖"><a href="#SDK-依赖" class="headerlink" title="SDK 依赖"></a>SDK 依赖</h3><p>首先是 SDK 的依赖情况：</p>
+<p><img src="/images/cocoapods-framework-1.png" alt="sdk"></p>
+<p>IJKFramework 动态库依赖了 libssl.a 静态库，LiveSDK 动态库依赖了 CocoaPods 的公有库私有库、系统库和 IJKFramework。</p>
+<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>Demo 工程依赖 SDK Framework 工程</p>
+<p><img src="/images/cocoapods-framework-2.png" alt="Demo"></p>
+<p><img src="/images/cocoapods-framework-3.png" alt="Demo"></p>
+<h3 id="具体打包配置"><a href="#具体打包配置" class="headerlink" title="具体打包配置"></a>具体打包配置</h3><p>由于 App Store 上架的时候不允许动态库嵌套，所以 LiveSDK 动态库内<strong>不能</strong>把 IJKFramework 动态库打进去</p>
+<p><img src="/images/cocoapods-framework-error.png" alt="Error"></p>
+<h6 id="1-SDK-Framework-工程配置"><a href="#1-SDK-Framework-工程配置" class="headerlink" title="1. SDK Framework 工程配置"></a>1. SDK Framework 工程配置</h6><ol>
+<li>在 <strong>Frameworks and Libraries</strong> 里添加 libssl.a 和系统库</li>
+<li><strong>Linking</strong> – <strong>Mach-O</strong> 里选择 <strong>Dynamic Library</strong></li>
+</ol>
+<h6 id="2-SDK-Podfile"><a href="#2-SDK-Podfile" class="headerlink" title="2. SDK Podfile"></a>2. SDK Podfile</h6><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">platform <span class="symbol">:ios</span>, <span class="string">'9.0'</span></span><br><span class="line"></span><br><span class="line">target <span class="string">'LiveSDK'</span> <span class="keyword">do</span></span><br><span class="line">  use_frameworks!</span><br><span class="line">  </span><br><span class="line">  pod <span class="string">'AFNetworking'</span>, <span class="string">'4.0.1'</span></span><br><span class="line">  pod <span class="string">'WebRTC'</span>, <span class="symbol">:git=&gt;<span class="string">'https://github.com/WebRTC-IOS-SDK.git'</span></span> , <span class="symbol">:tag</span> =&gt; <span class="string">'2.1.11'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<h6 id="3-Build-SDK-framework，生成-Dynamic-Framework"><a href="#3-Build-SDK-framework，生成-Dynamic-Framework" class="headerlink" title="3. Build SDK framework，生成 Dynamic Framework"></a>3. Build SDK framework，生成 Dynamic Framework</h6><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  file LiveSDK.framework/LiveSDK</span><br><span class="line">LiveSDK.framework/<span class="symbol">LiveSDK:</span> Mach-O <span class="number">64</span>-bit dynamically linked shared library arm64</span><br></pre></td></tr></table></figure>
+<h3 id="制作私有-pod"><a href="#制作私有-pod" class="headerlink" title="制作私有 pod"></a>制作私有 pod</h3><p>Github 创建仓库 <strong>Live_iOS</strong></p>
+<p>Live_iOS<br>├─Live_iOS.podspec<br>├─Files<br>|   ├─YDLiveSDK.framework<br>|   ├─YDLIJKMediaFramework.framework</p>
+<p><strong>Live_iOS.podspec</strong> 内容：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></span><br><span class="line">s.name         = <span class="string">"Live_iOS"</span></span><br><span class="line">s.summary      = <span class="string">"Live SDK for iOS."</span></span><br><span class="line">  </span><br><span class="line">s.homepage     = <span class="string">"https://github.com/Live_iOS.git"</span></span><br><span class="line">  </span><br><span class="line">s.license      = <span class="string">"MIT"</span></span><br><span class="line">  </span><br><span class="line">s.author             = &#123; <span class="string">""</span> =&gt; <span class="string">""</span> &#125;</span><br><span class="line">s.version      = <span class="string">"1.0.0-beta3"</span></span><br><span class="line">s.platform     = <span class="symbol">:ios</span></span><br><span class="line">s.platform     = <span class="symbol">:ios</span>, <span class="string">"9.0"</span></span><br><span class="line">  </span><br><span class="line">s.source       = &#123; <span class="symbol">:git</span> =&gt; <span class="string">"https://github.com/Live_iOS.git"</span>, <span class="symbol">:tag</span> =&gt; <span class="string">"<span class="subst">#&#123;s.version&#125;</span>"</span> &#125;</span><br><span class="line">  </span><br><span class="line">s.source_files  =  <span class="string">"Files/LiveSDK.framework/Headers/*.h"</span></span><br><span class="line"><span class="comment"># s.exclude_files = "Classes/Exclude"</span></span><br><span class="line">  </span><br><span class="line">s.public_header_files = <span class="string">"Files/LiveSDK.framework/Headers/*.h"</span></span><br><span class="line">  </span><br><span class="line">s.resources = <span class="string">"Files/LiveAuthMessage.plist"</span></span><br><span class="line"></span><br><span class="line">s.vendored_frameworks = <span class="string">"Files/LiveSDK.framework"</span>, <span class="string">"Files/IJKMediaFramework.framework"</span></span><br><span class="line">  </span><br><span class="line">s.requires_arc = <span class="literal">true</span></span><br><span class="line">  </span><br><span class="line">s.frameworks = </span><br><span class="line"><span class="string">"UIKit"</span>, <span class="string">"OpenAL"</span>, <span class="string">"Accelerate"</span>, <span class="string">"ReplayKit"</span>, <span class="string">"AVFoundation"</span>, <span class="string">"WebKit"</span>, </span><br><span class="line"><span class="string">"AudioToolbox"</span>, <span class="string">"CoreGraphics"</span>, <span class="string">"CoreMedia"</span>, <span class="string">"CoreVideo"</span>, <span class="string">"MediaPlayer"</span>, </span><br><span class="line"><span class="string">"MobileCoreServices"</span>, <span class="string">"OpenGLES"</span>, <span class="string">"QuartzCore"</span>, <span class="string">"Foundation"</span>, <span class="string">"VideoToolbox"</span></span><br><span class="line"></span><br><span class="line">s.libraries = <span class="string">"sqlite3"</span>, <span class="string">"resolv"</span>, <span class="string">"c++"</span>, <span class="string">"z"</span>, <span class="string">"bz2"</span></span><br><span class="line">  </span><br><span class="line">s.dependency <span class="string">'AFNetworking'</span>, <span class="string">'4.0.1'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>提交到 CocoaPods 官方仓库 <strong>Live_iOS</strong></p>
+<h3 id="项目集成"><a href="#项目集成" class="headerlink" title="项目集成"></a>项目集成</h3><p>项目集成有两种方式。先大体说明，后面有具体代码。<strong>但是两种情况都不需要添加系统依赖库就可以运行，这里存疑？？？</strong></p>
+<p>第一种用户集成简单，使用 cocodpods 完成所有工作，但是需要我们制作 pod 源，因为 WebRTC 现在是私有 pod。如果用户把我们的 SDK 在他们项目的 submodule 里使用的话也使用这种，原因是因为现在 <strong>CocoaPods 1.10.0</strong> 不支持在 podspec 里写 <code>:git=&gt;&#39;https://github.com/WebRTC-IOS-SDK.git&#39; , :tag =&gt; &#39;2.1.11&#39;</code>。</p>
+<p>第二种就是正常的接入，用户做的工作会多一点。</p>
+<h4 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h4><p>需要先制作 pod 源然后再集成</p>
+<ol>
+<li><p>Github 创建仓库做为 pod 源，git 地址为 <strong><a href="https://github.com/Live_iOS_Dependency.git" target="_blank" rel="noopener">https://github.com/Live_iOS_Dependency.git</a></strong></p>
+<p>仓库需要创建 WebRTC/2.1.1，然后在版本号文件夹里创建 WebRTC.podspec, 内容和私有的 WebRTC.podspec 一致。</p>
+</li>
+<li><p>编辑 demo 的 podfile</p>
+</li>
+</ol>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">source <span class="string">'https://github.com/CocoaPods/Specs.git'</span></span><br><span class="line"><span class="comment"># 这里要添加源</span></span><br><span class="line">source <span class="string">'https://github.com/Live_iOS_Dependency.git'</span></span><br><span class="line">target <span class="string">'test'</span><span class="keyword">do</span></span><br><span class="line"><span class="comment"># Comment the next line if you don't want to use dynamic frameworks</span></span><br><span class="line"> use_frameworks!</span><br><span class="line"><span class="comment"># Pods for test</span></span><br><span class="line"> pod <span class="string">'Live_iOS'</span>, <span class="string">'1.0.0-beta3'</span></span><br><span class="line"> pod <span class="string">'WebRTC'</span>, <span class="string">'2.1.11'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Done</li>
+</ol>
+<h4 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h4><ol>
+<li><p>编辑 demo 的 podfile</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">target <span class="string">'test'</span><span class="keyword">do</span></span><br><span class="line"><span class="comment"># Comment the next line if you don't want to use dynamic frameworks</span></span><br><span class="line"> use_frameworks!</span><br><span class="line"><span class="comment"># Pods for test</span></span><br><span class="line">pod <span class="string">'AFNetworking'</span>, <span class="string">'4.0.1'</span></span><br><span class="line">pod <span class="string">'WebRTC'</span>, <span class="symbol">:git=&gt;<span class="string">'https://github.com/WebRTC-IOS-SDK.git'</span></span> , <span class="symbol">:tag</span> =&gt; <span class="string">'2.1.11'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把 <strong>Live_iOS.framework</strong> 和 <strong>IJKMediaFramework.framework</strong> 拖进项目里，并根据命令 <code>file</code> 和 <code>codesign -dv</code> 的结果在 <strong>Project - General - Frameworks, Libraries and Embedded Content</strong> 里正确配置。</p>
+</li>
+<li><p>Done</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/CocoaPods/" rel="tag"># CocoaPods</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/19/uilabel-max-width-and-image-fit-autolayout/" rel="prev" title="UILabel 自适应宽高并设置最大宽度，并主导父 view 的约束">
+      <i class="fa fa-chevron-left"></i> UILabel 自适应宽高并设置最大宽度，并主导父 view 的约束
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDK-依赖"><span class="nav-number">2.</span> <span class="nav-text">SDK 依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目结构"><span class="nav-number">3.</span> <span class="nav-text">项目结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体打包配置"><span class="nav-number">4.</span> <span class="nav-text">具体打包配置</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-SDK-Framework-工程配置"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">1. SDK Framework 工程配置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-SDK-Podfile"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">2. SDK Podfile</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-Build-SDK-framework，生成-Dynamic-Framework"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">3. Build SDK framework，生成 Dynamic Framework</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#制作私有-pod"><span class="nav-number">5.</span> <span class="nav-text">制作私有 pod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目集成"><span class="nav-number">6.</span> <span class="nav-text">项目集成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一种"><span class="nav-number">6.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二种"><span class="nav-number">6.2.</span> <span class="nav-text">第二种</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lugick Wang"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Lugick Wang</p>
+  <div class="site-description" itemprop="description">书山有路勤为径，学海无涯苦作舟。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/magic3584" title="GitHub → https://github.com/magic3584" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lugick Wang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://Lugick.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://www.lugick.com/2021/04/09/create-ios-framework-with-cocoapods/";
+    this.page.identifier = "2021/04/09/create-ios-framework-with-cocoapods/";
+    this.page.title = "基于 CocoaPods 制作 iOS framework 并提交";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://Lugick.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
