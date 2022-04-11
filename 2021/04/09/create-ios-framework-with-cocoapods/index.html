@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://www.lugick.com/images/cocoapods-framework-3.png">
 <meta property="og:image" content="https://www.lugick.com/images/cocoapods-framework-error.png">
 <meta property="article:published_time" content="2021-04-09T12:12:16.000Z">
-<meta property="article:modified_time" content="2021-04-10T08:09:15.724Z">
+<meta property="article:modified_time" content="2022-04-11T11:56:21.023Z">
 <meta property="article:author" content="Lugick Wang">
 <meta property="article:tag" content="CocoaPods">
 <meta name="twitter:card" content="summary">
@@ -258,7 +258,7 @@
 <h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>Demo 工程依赖 SDK Framework 工程</p>
 <p><img src="/images/cocoapods-framework-2.png" alt="Demo"></p>
 <p><img src="/images/cocoapods-framework-3.png" alt="Demo"></p>
-<h3 id="具体打包配置"><a href="#具体打包配置" class="headerlink" title="具体打包配置"></a>具体打包配置</h3><p>由于 App Store 上架的时候不允许动态库嵌套，所以 LiveSDK 动态库内<strong>不能</strong>把 IJKFramework 动态库打进去</p>
+<h3 id="具体打包配置"><a href="#具体打包配置" class="headerlink" title="具体打包配置"></a>具体打包配置</h3><p>由于 App Store 上架的时候不允许动态库嵌套，所以 LiveSDK 动态库内<strong>不能</strong>把 IJKFramework 动态库打进去(<strong>TODO:这里有点疑问，当时可能理解错了，后续需要 nm 命令来具体查看是否打包进去了</strong>)</p>
 <p><img src="/images/cocoapods-framework-error.png" alt="Error"></p>
 <h4 id="SDK-Framework-工程配置"><a href="#SDK-Framework-工程配置" class="headerlink" title="SDK Framework 工程配置"></a>SDK Framework 工程配置</h4><ol>
 <li><p>在 <strong>Frameworks and Libraries</strong> 里添加 libssl.a 和系统库</p>

@@ -149,29 +149,6 @@
       </tags>
   </entry>
   <entry>
-    <title>使用 git submodule 备份 hexo 的主题</title>
-    <url>/2018/12/02/backup-hexo-theme-with-git-submodule/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前备份 hexo 的主题 next 的时候感觉很麻烦<a href="/2016/07/19/init-and-backup-hexo-blog/#备份Github">看这里</a>， 最近某牛测试域名回收导致资源链接都失效了，又看见 next 主题更新到了 6.0，然后就试着用 git submodule 来更优雅的备份自定义的主题。</p>
-<a id="more"></a>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
-<li><p>首先 fork 主题到自己仓库如 <code>my-theme-git-repo</code></p>
-</li>
-<li><p>删除之前的 <code>themes/next</code></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd hexo_blog</span><br><span class="line">git rm -r --cached themes/next/</span><br><span class="line">rm -rf themes/next/</span><br><span class="line">git submodule add my-theme-git themes/next/</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> up remote upsteam to update</span></span><br><span class="line">cd themes/next</span><br><span class="line">git remote add upstream https://github.com/theme-next/hexo-theme-next</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>自定义主题后只需要在 <code>themes/next</code> 下进行 pull/push， 也可以在本目录下使用 upstream 让自己的 fork 的远端仓库与原主题保持同步</p>
-</li>
-<li><p>切换新电脑后</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone my-blog-git</span><br><span class="line">cd my-blog-git</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/theme-next/hexo-theme-next/issues/483" target="_blank" rel="noopener">issues</a></p>
-]]></content>
-      <tags>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>排序算法——冒泡排序</title>
     <url>/2018/02/24/bubble-sort/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>冒泡排序，以从小到大排序为例。<br><a id="more"></a></p>
@@ -184,49 +161,6 @@
 ]]></content>
       <tags>
         <tag>Sorting</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>修改git路径</title>
-    <url>/2016/09/20/change-git-control/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>修改 git 路径<br><a id="more"></a></p>
-<h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>father-&gt;son</p>
-<h3 id="father-gt-son"><a href="#father-gt-son" class="headerlink" title="father -&gt; son"></a>father -&gt; son</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">father $ mv .git ./son</span><br><span class="line">father $ cd son</span><br><span class="line">son    $ git add .</span><br><span class="line">son    $ git commit</span><br></pre></td></tr></table></figure>
-<h3 id="son-gt-father"><a href="#son-gt-father" class="headerlink" title="son -&gt; father"></a>son -&gt; father</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">son    $ mv .git ../</span><br><span class="line">son    $ cd ..</span><br><span class="line">father $ git add .</span><br><span class="line">father $ git commit</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在自己的服务器上搭建 bitwarden rs</title>
-    <url>/2021/06/16/build-bitwarden-rs-service/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>由于账号众多，并且有些恢复密钥需要保存，就用了第三方的密码管理工具。1password 免费版只能手机上添加， Mac 上只读，不方便；试用的 Enpass 马上就要到期，所以寻求便宜甚至免费的其它工具。</p>
-<p>Bitwarden 是开源免费的，除了用自带的云服务以外还可以部署在自己的服务器上，所以在 vps 搭建一下看看。（这里用的非官方的 bitwarden_rs，要求配置更低）</p>
-<a id="more"></a>
-<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
-<li>vps</li>
-<li>域名</li>
-</ul>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
-<li><p>Docker  Compose 拉镜像 <a href="https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose" target="_blank" rel="noopener">https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose</a></p>
-<ul>
-<li><p>创建 <code>docker-compose.yml</code>，替换掉其中的域名和邮箱</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">vaultwarden:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">vaultwarden/server:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">vaultwarden</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">WEBSOCKET_ENABLED=true</span>  <span class="comment"># Enable WebSocket notifications.</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./vw-data:/data</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">caddy:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">caddy:2</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">caddy</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">80</span><span class="string">:80</span>  <span class="comment"># Needed for the ACME HTTP-01 challenge.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">443</span><span class="string">:443</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./Caddyfile:/etc/caddy/Caddyfile:ro</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./caddy-config:/config</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./caddy-data:/data</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DOMAIN=http(s)://vaultwarden.example.com</span>  <span class="comment"># Your domain, prefixed with http or https.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">EMAIL=admin@example.com</span>       <span class="comment"># The email address to use for ACME registration.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">LOG_FILE=/data/access.log</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建 <code>Caddyfile</code></p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">&#123;$DOMAIN&#125;:443</span> <span class="string">&#123;</span></span><br><span class="line">  <span class="string">log</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">level</span> <span class="string">INFO</span></span><br><span class="line">    <span class="string">output</span> <span class="string">file</span> <span class="string">&#123;$LOG_FILE&#125;</span> <span class="string">&#123;</span></span><br><span class="line">      <span class="string">roll_size</span> <span class="string">10MB</span></span><br><span class="line">      <span class="string">roll_keep</span> <span class="number">10</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Use the ACME HTTP-01 challenge to get a cert for the configured domain.</span></span><br><span class="line">  <span class="string">tls</span> <span class="string">&#123;$EMAIL&#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># This setting may have compatibility issues with some browsers</span></span><br><span class="line">  <span class="comment"># (e.g., attachment downloading on Firefox). Try disabling this</span></span><br><span class="line">  <span class="comment"># if you encounter issues.</span></span><br><span class="line">  <span class="string">encode</span> <span class="string">gzip</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Notifications redirected to the WebSocket server</span></span><br><span class="line">  <span class="string">reverse_proxy</span> <span class="string">/notifications/hub</span> <span class="string">vaultwarden:3012</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Proxy everything else to Rocket</span></span><br><span class="line">  <span class="string">reverse_proxy</span> <span class="string">vaultwarden:80</span> <span class="string">&#123;</span></span><br><span class="line">       <span class="comment"># Send the true remote IP to Rocket, so that vaultwarden can put this in the</span></span><br><span class="line">       <span class="comment"># log, so that fail2ban can ban the correct IP.</span></span><br><span class="line">       <span class="string">header_up</span> <span class="string">X-Real-IP</span> <span class="string">&#123;remote_host&#125;</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>vps 开放 80 和 443 端口</p>
-</li>
-<li>添加 DNS 解析 A 记录指向 vps 的公网 ip</li>
-<li>运行 <code>docker-compose up -d</code>，访问域名即可打开 bitwarden</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>安全</tag>
       </tags>
   </entry>
   <entry>
@@ -264,54 +198,46 @@
       </tags>
   </entry>
   <entry>
-    <title>swift中从json转object</title>
-    <url>/2017/02/24/convert-json-to-object-in-swift/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文列举了从网络请求和本地文件两种 JSON 转 object 的方式<br><a id="more"></a></p>
-<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><h4 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h4><p><a href="https://github.com/SwiftyJSON/SwiftyJSON" target="_blank" rel="noopener">SwiftyJSON</a><br><a href="https://github.com/Hearst-DD/ObjectMapper" target="_blank" rel="noopener">ObjectMapper</a></p>
-<h4 id="定义Object"><a href="#定义Object" class="headerlink" title="定义Object"></a>定义Object</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">News</span>: <span class="title">Mappable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">String!</span></span><br><span class="line">    <span class="keyword">var</span> lock: <span class="type">Bool!</span></span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String!</span></span><br><span class="line">    <span class="keyword">var</span> show: <span class="type">Bool!</span></span><br><span class="line">    <span class="keyword">var</span> type: <span class="type">String!</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(<span class="built_in">map</span>: <span class="type">Map</span>) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">mapping</span><span class="params">(<span class="built_in">map</span>: Map)</span></span> &#123;</span><br><span class="line">        id   &lt;- <span class="built_in">map</span>[<span class="string">"id"</span>]</span><br><span class="line">        lock &lt;- <span class="built_in">map</span>[<span class="string">"lock"</span>]</span><br><span class="line">        name &lt;- <span class="built_in">map</span>[<span class="string">"name"</span>]</span><br><span class="line">        show &lt;- <span class="built_in">map</span>[<span class="string">"show"</span>]</span><br><span class="line">        type &lt;- <span class="built_in">map</span>[<span class="string">"type"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="一、本地-initialData-json-文件"><a href="#一、本地-initialData-json-文件" class="headerlink" title="一、本地 initialData.json 文件"></a>一、本地 initialData.json 文件</h5><figure class="highlight"><table><tr><td class="code"><pre><span class="line">"newsMenuVoList": [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"news_all"</span>,</span><br><span class="line">        <span class="attr">"lock"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"热搜"</span>,</span><br><span class="line">        <span class="attr">"show"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"推荐"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"news_1"</span>,</span><br><span class="line">        <span class="attr">"lock"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"国际"</span>,</span><br><span class="line">        <span class="attr">"show"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"推荐"</span></span><br><span class="line">     &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h6 id="1-读取本地文件转化成Dictionary"><a href="#1-读取本地文件转化成Dictionary" class="headerlink" title="1.读取本地文件转化成Dictionary"></a>1.读取本地文件转化成Dictionary</h6><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">queryInitialDic</span><span class="params">()</span></span> -&gt; <span class="type">Any</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.initialDic == <span class="literal">nil</span> &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">let</span> path = <span class="type">Bundle</span>.main.path(forResource: <span class="string">"initialData"</span>, ofType: <span class="string">"json"</span>)</span><br><span class="line">            <span class="keyword">let</span> data = <span class="type">NSData</span>.<span class="keyword">init</span>(contentsOfFile: path!)</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">var</span> dic: <span class="type">Any?</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                dic = <span class="keyword">try</span> <span class="type">JSONSerialization</span>.jsonObject(with: data! <span class="keyword">as</span> <span class="type">Data</span>, options: <span class="type">JSONSerialization</span>.<span class="type">ReadingOptions</span>.allowFragments)</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">self</span>.initialDic = dic!</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">return</span> dic!</span><br><span class="line">            &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">            </span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">self</span>.initialDic</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="type">NSNull</span>()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h6 id="2-转Object"><a href="#2-转Object" class="headerlink" title="2.转Object"></a>2.转Object</h6><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsManager</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> sharedInstance = <span class="type">NewsManager</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> newsArray = [<span class="type">News</span>]()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> array = <span class="type">NewsInitializer</span>.sharedInstance.newsMenuVoList()</span><br><span class="line">        <span class="keyword">var</span> tempArray = [<span class="type">News</span>]()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="number">_</span>, value) <span class="keyword">in</span> array.enumerated() &#123;</span><br><span class="line">            <span class="keyword">let</span> json = <span class="type">JSON</span>(value)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> jsongString = json.rawString() &#123;</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">let</span> news = <span class="type">News</span>(<span class="type">JSONString</span>: jsongString) &#123;</span><br><span class="line">                    tempArray.append(news)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="二、读取接口"><a href="#二、读取接口" class="headerlink" title="二、读取接口"></a>二、读取接口</h5><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fetchNews</span><span class="params">(withID id: String, page: Int, completionHandler:@escaping <span class="params">(Array&lt;News&gt;?)</span></span></span> -&gt; ())&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> tempArray = [<span class="type">News</span>]()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> paras = [ <span class="string">"id"</span>: id,</span><br><span class="line">                      <span class="string">"page"</span>: page ] <span class="keyword">as</span> [<span class="type">String</span> : <span class="type">Any</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="type">Alamofire</span>.request(<span class="type">NEWS_API</span>, parameters: paras).responseJSON &#123; response <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> data: <span class="type">Dictionary</span> = response.result.value <span class="keyword">as</span>? <span class="type">Dictionary</span>&lt;<span class="type">String</span>, <span class="type">Any</span>&gt; &#123;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">let</span> arr: <span class="type">Array</span>&lt;<span class="type">Any</span>&gt; = data[<span class="string">"list"</span>] <span class="keyword">as</span>! <span class="type">Array</span>&lt;<span class="type">Any</span>&gt;</span><br><span class="line">                <span class="keyword">for</span> (<span class="number">_</span> , value) <span class="keyword">in</span> arr.enumerated() &#123;</span><br><span class="line">                    <span class="keyword">let</span> json = <span class="type">JSON</span>(value)</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> jsongString = json.rawString() &#123;</span><br><span class="line">                        <span class="keyword">if</span> <span class="keyword">let</span> news = <span class="type">News</span>(<span class="type">JSONString</span>: jsongString) &#123;</span><br><span class="line">                            tempArray.append(news)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                completionHandler(tempArray)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                completionHandler(<span class="literal">nil</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+    <title>在自己的服务器上搭建 bitwarden rs</title>
+    <url>/2021/06/16/build-bitwarden-rs-service/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>由于账号众多，并且有些恢复密钥需要保存，就用了第三方的密码管理工具。1password 免费版只能手机上添加， Mac 上只读，不方便；试用的 Enpass 马上就要到期，所以寻求便宜甚至免费的其它工具。</p>
+<p>Bitwarden 是开源免费的，除了用自带的云服务以外还可以部署在自己的服务器上，所以在 vps 搭建一下看看。（这里用的非官方的 bitwarden_rs，要求配置更低）</p>
+<a id="more"></a>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><ul>
+<li>vps</li>
+<li>域名</li>
+</ul>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ul>
+<li><p>Docker  Compose 拉镜像 <a href="https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose" target="_blank" rel="noopener">https://github.com/dani-garcia/vaultwarden/wiki/Using-Docker-Compose</a></p>
+<ul>
+<li><p>创建 <code>docker-compose.yml</code>，替换掉其中的域名和邮箱</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">vaultwarden:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">vaultwarden/server:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">vaultwarden</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">WEBSOCKET_ENABLED=true</span>  <span class="comment"># Enable WebSocket notifications.</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./vw-data:/data</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">caddy:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">caddy:2</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">caddy</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">80</span><span class="string">:80</span>  <span class="comment"># Needed for the ACME HTTP-01 challenge.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">443</span><span class="string">:443</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./Caddyfile:/etc/caddy/Caddyfile:ro</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./caddy-config:/config</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./caddy-data:/data</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">DOMAIN=http(s)://vaultwarden.example.com</span>  <span class="comment"># Your domain, prefixed with http or https.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">EMAIL=admin@example.com</span>       <span class="comment"># The email address to use for ACME registration.</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">LOG_FILE=/data/access.log</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 <code>Caddyfile</code></p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="string">&#123;$DOMAIN&#125;:443</span> <span class="string">&#123;</span></span><br><span class="line">  <span class="string">log</span> <span class="string">&#123;</span></span><br><span class="line">    <span class="string">level</span> <span class="string">INFO</span></span><br><span class="line">    <span class="string">output</span> <span class="string">file</span> <span class="string">&#123;$LOG_FILE&#125;</span> <span class="string">&#123;</span></span><br><span class="line">      <span class="string">roll_size</span> <span class="string">10MB</span></span><br><span class="line">      <span class="string">roll_keep</span> <span class="number">10</span></span><br><span class="line">    <span class="string">&#125;</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Use the ACME HTTP-01 challenge to get a cert for the configured domain.</span></span><br><span class="line">  <span class="string">tls</span> <span class="string">&#123;$EMAIL&#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># This setting may have compatibility issues with some browsers</span></span><br><span class="line">  <span class="comment"># (e.g., attachment downloading on Firefox). Try disabling this</span></span><br><span class="line">  <span class="comment"># if you encounter issues.</span></span><br><span class="line">  <span class="string">encode</span> <span class="string">gzip</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Notifications redirected to the WebSocket server</span></span><br><span class="line">  <span class="string">reverse_proxy</span> <span class="string">/notifications/hub</span> <span class="string">vaultwarden:3012</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># Proxy everything else to Rocket</span></span><br><span class="line">  <span class="string">reverse_proxy</span> <span class="string">vaultwarden:80</span> <span class="string">&#123;</span></span><br><span class="line">       <span class="comment"># Send the true remote IP to Rocket, so that vaultwarden can put this in the</span></span><br><span class="line">       <span class="comment"># log, so that fail2ban can ban the correct IP.</span></span><br><span class="line">       <span class="string">header_up</span> <span class="string">X-Real-IP</span> <span class="string">&#123;remote_host&#125;</span></span><br><span class="line">  <span class="string">&#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>vps 开放 80 和 443 端口</p>
+</li>
+<li>添加 DNS 解析 A 记录指向 vps 的公网 ip</li>
+<li>运行 <code>docker-compose up -d</code>，访问域名即可打开 bitwarden</li>
+</ul>
 ]]></content>
       <tags>
-        <tag>swift</tag>
+        <tag>安全</tag>
       </tags>
   </entry>
   <entry>
-    <title>用 lame 把 wav 转换成 mp3</title>
-    <url>/2020/06/12/convert-wav-to-mp3-with-lame/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>项目中用到了录制音频转换成 mp3 后上传，网上查的都是 OC 写的，这里用的 swift 4.2，记录一下。</p>
-<a id="more"></a>
-<h3 id="录制"><a href="#录制" class="headerlink" title="录制"></a>录制</h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">recorder = <span class="keyword">try</span> <span class="type">AVAudioRecorder</span>(url: filePathURL, settings: [</span><br><span class="line">                <span class="type">AVFormatIDKey</span>: <span class="type">Int</span>(kAudioFormatLinearPCM),</span><br><span class="line">                <span class="type">AVSampleRateKey</span>: <span class="number">44100</span>,</span><br><span class="line">                <span class="type">AVNumberOfChannelsKey</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="type">AVLinearPCMBitDepthKey</span>: <span class="number">16</span>,</span><br><span class="line">                <span class="type">AVEncoderAudioQualityKey</span>:<span class="type">AVAudioQuality</span>.high.rawValue</span><br><span class="line">            ])</span><br></pre></td></tr></table></figure>
-<h3 id="编译-lame-静态库"><a href="#编译-lame-静态库" class="headerlink" title="编译 lame 静态库"></a>编译 lame 静态库</h3><p><a href="https://github.com/wuqiong/mp3lame-for-iOS" target="_blank" rel="noopener">https://github.com/wuqiong/mp3lame-for-iOS</a></p>
-<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> read = <span class="number">0</span></span><br><span class="line"><span class="keyword">var</span> write = <span class="number">0</span></span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> pcm = fopen(wavPath, <span class="string">"rb"</span>)</span><br><span class="line">fseek(pcm, <span class="number">4</span>*<span class="number">1024</span>, <span class="type">SEEK_CUR</span>)</span><br><span class="line"><span class="keyword">let</span> mp3 = fopen(mp3Path, <span class="string">"wb+"</span>)</span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> pcmSize = <span class="number">8192</span></span><br><span class="line"><span class="keyword">let</span> mp3Size = <span class="number">8192</span></span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> pcmBuffer = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">Int16</span>&gt;.allocate(capacity: <span class="type">Int</span>(pcmSize*<span class="number">2</span>))</span><br><span class="line"><span class="keyword">let</span> mp3Buffer = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">UInt8</span>&gt;.allocate(capacity: <span class="type">Int</span>(mp3Size))</span><br><span class="line"></span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> lame = lame_init()</span><br><span class="line">lame_set_num_channels(lame, <span class="number">1</span>)</span><br><span class="line"><span class="comment">//                lame_set_mode(lame, MONO)</span></span><br><span class="line">lame_set_in_samplerate(lame, <span class="number">22050</span>)</span><br><span class="line"><span class="comment">//                lame_set_brate(lame, rate)</span></span><br><span class="line">lame_set_VBR(lame, vbr_default)</span><br><span class="line">lame_init_params(lame)</span><br><span class="line">            </span><br><span class="line"><span class="keyword">repeat</span> &#123;</span><br><span class="line">		read = fread(pcmBuffer, <span class="number">2</span>*<span class="type">MemoryLayout</span>&lt;<span class="type">Int16</span>&gt;.size, pcmSize, pcm)</span><br><span class="line">		<span class="keyword">if</span> read == <span class="number">0</span> &#123;</span><br><span class="line">				write = <span class="type">Int</span>(lame_encode_flush(lame, mp3Buffer, <span class="type">Int32</span>(mp3Size)))</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				write = <span class="type">Int</span>(lame_encode_buffer_interleaved(lame, pcmBuffer, <span class="type">Int32</span>(read), mp3Buffer, <span class="type">Int32</span>(mp3Size)))</span><br><span class="line">		&#125;</span><br><span class="line">                </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">"write\(write)"</span>)</span><br><span class="line">		fwrite(mp3Buffer, write, <span class="number">1</span>, mp3)</span><br><span class="line">                </span><br><span class="line">&#125; <span class="keyword">while</span> read != <span class="number">0</span></span><br><span class="line"><span class="comment">//                lame_mp3_tags_fid(lame, mp3)</span></span><br><span class="line">lame_close(lame)</span><br><span class="line">fclose(mp3)</span><br><span class="line">fclose(pcm)</span><br></pre></td></tr></table></figure>
-<h3 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h3><p>录制时候采样率为 44100，转换时如果设置 44100 的采样率，发现会播放两倍速，减半成 22050 以后正常，这个等我学习点理论知识以后再来补充。</p>
+    <title>修改git路径</title>
+    <url>/2016/09/20/change-git-control/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>修改 git 路径<br><a id="more"></a></p>
+<h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>father-&gt;son</p>
+<h3 id="father-gt-son"><a href="#father-gt-son" class="headerlink" title="father -&gt; son"></a>father -&gt; son</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">father $ mv .git ./son</span><br><span class="line">father $ cd son</span><br><span class="line">son    $ git add .</span><br><span class="line">son    $ git commit</span><br></pre></td></tr></table></figure>
+<h3 id="son-gt-father"><a href="#son-gt-father" class="headerlink" title="son -&gt; father"></a>son -&gt; father</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">son    $ mv .git ../</span><br><span class="line">son    $ cd ..</span><br><span class="line">father $ git add .</span><br><span class="line">father $ git commit</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>音视频</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>CSMA/CD 协议</title>
-    <url>/2021/07/26/csma-cd/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>CSMA/CD 协议。</p>
-<a id="more"></a>
-<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p><img src="/images/computer-networking/csma-1.png" alt="1"></p>
-<p><img src="/images/computer-networking/csma-2.png" alt="2"></p>
-<p><img src="/images/computer-networking/csma-3.png" alt="3"></p>
-<p><img src="/images/computer-networking/csma-4.png" alt="4"></p>
-<p><img src="/images/computer-networking/csma-5.png" alt="5"></p>
-<p><img src="/images/computer-networking/csma-6.png" alt="6"></p>
-<p><img src="/images/computer-networking/csma-7.png" alt="7"></p>
-<p><img src="/images/computer-networking/csma-8.png" alt="8"></p>
-<p><img src="/images/computer-networking/csma-9.png" alt="9"></p>
-<p><img src="/images/computer-networking/csma-10.png" alt="10"></p>
-<p><img src="/images/computer-networking/csma-11.png" alt="11"></p>
-<h3 id="截图来源"><a href="#截图来源" class="headerlink" title="截图来源"></a>截图来源</h3><p><a href="https://www.bilibili.com/video/BV1Ut411d7RE?p=6" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Ut411d7RE?p=6</a></p>
-]]></content>
-      <tags>
-        <tag>计算机网络</tag>
+        <tag>git</tag>
       </tags>
   </entry>
   <entry>
@@ -325,7 +251,7 @@
 <h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><p>Demo 工程依赖 SDK Framework 工程</p>
 <p><img src="/images/cocoapods-framework-2.png" alt="Demo"></p>
 <p><img src="/images/cocoapods-framework-3.png" alt="Demo"></p>
-<h3 id="具体打包配置"><a href="#具体打包配置" class="headerlink" title="具体打包配置"></a>具体打包配置</h3><p>由于 App Store 上架的时候不允许动态库嵌套，所以 LiveSDK 动态库内<strong>不能</strong>把 IJKFramework 动态库打进去</p>
+<h3 id="具体打包配置"><a href="#具体打包配置" class="headerlink" title="具体打包配置"></a>具体打包配置</h3><p>由于 App Store 上架的时候不允许动态库嵌套，所以 LiveSDK 动态库内<strong>不能</strong>把 IJKFramework 动态库打进去(<strong>TODO:这里有点疑问，当时可能理解错了，后续需要 nm 命令来具体查看是否打包进去了</strong>)</p>
 <p><img src="/images/cocoapods-framework-error.png" alt="Error"></p>
 <h4 id="SDK-Framework-工程配置"><a href="#SDK-Framework-工程配置" class="headerlink" title="SDK Framework 工程配置"></a>SDK Framework 工程配置</h4><ol>
 <li><p>在 <strong>Frameworks and Libraries</strong> 里添加 libssl.a 和系统库</p>
@@ -370,25 +296,55 @@
       </tags>
   </entry>
   <entry>
-    <title>shell 配合 fastlane 打包多个 target</title>
-    <url>/2018/06/22/fastlane-with-multiple-targets/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>试一下 fastlane 进行打包上传到 testflight。</p>
-<a id="more"></a>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
-<li><p>安装 fastlane</p>
-</li>
-<li><p>安装插件 <a href="https://github.com/SiarheiFedartsou/fastlane-plugin-versioning" target="_blank" rel="noopener"><strong>fastlane-plugin-versioning</strong></a></p>
-</li>
-<li><p>编辑 Fastfile</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">desc <span class="string">"Push a new beta build to TestFlight"</span></span><br><span class="line">  lane <span class="symbol">:beta</span> <span class="keyword">do</span>  <span class="params">|options|</span></span><br><span class="line">  	<span class="comment">#项目名</span></span><br><span class="line">  	target = options[<span class="symbol">:t</span>]</span><br><span class="line">  	build_number = options[<span class="symbol">:n</span>]</span><br><span class="line">  	puts(<span class="string">"要打包 <span class="subst">#&#123;target&#125;</span>  版本号 <span class="subst">#&#123;build_number&#125;</span>"</span>)</span><br><span class="line">    increment_build_number_in_plist(<span class="symbol">target:</span> <span class="string">"<span class="subst">#&#123;target&#125;</span>"</span>, <span class="symbol">build_number:</span> <span class="string">"<span class="subst">#&#123;build_number&#125;</span>"</span>)</span><br><span class="line">    <span class="comment">#increment_build_number_in_plist(target: "Today", build_number: "#&#123;build_number&#125;")</span></span><br><span class="line">    build_app(<span class="symbol">workspace:</span> <span class="string">"XXXX.xcworkspace"</span> ,<span class="symbol">scheme:</span> <span class="string">"<span class="subst">#&#123;target&#125;</span>"</span>)</span><br><span class="line">    upload_to_testflight</span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>新建 tf.shell</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">echo "选择要进行 tf 的项目"</span><br><span class="line"></span><br><span class="line">select target in "target1" "target2" "target3"</span><br><span class="line">do</span><br><span class="line">	case $target in</span><br><span class="line">		"target1") targetName="target1"; break ;;</span><br><span class="line">		"target2") targetName="target2"; break ;;</span><br><span class="line">		"target3") targetName="target3"; break ;;</span><br><span class="line">		*) echo "选的不对，再选一次" ;;</span><br><span class="line">	esac</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo "已经选择" $targetName</span><br><span class="line"></span><br><span class="line">currentTime=`date '+%Y%m%d%H%M'`</span><br><span class="line">echo "现在时间 $currentTime"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> fastlane</span></span><br><span class="line">fastlane beta t:$targetName n:$currentTime</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+    <title>swift中从json转object</title>
+    <url>/2017/02/24/convert-json-to-object-in-swift/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文列举了从网络请求和本地文件两种 JSON 转 object 的方式<br><a id="more"></a></p>
+<h3 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h3><h4 id="第三方库"><a href="#第三方库" class="headerlink" title="第三方库"></a>第三方库</h4><p><a href="https://github.com/SwiftyJSON/SwiftyJSON" target="_blank" rel="noopener">SwiftyJSON</a><br><a href="https://github.com/Hearst-DD/ObjectMapper" target="_blank" rel="noopener">ObjectMapper</a></p>
+<h4 id="定义Object"><a href="#定义Object" class="headerlink" title="定义Object"></a>定义Object</h4><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">News</span>: <span class="title">Mappable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">String!</span></span><br><span class="line">    <span class="keyword">var</span> lock: <span class="type">Bool!</span></span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String!</span></span><br><span class="line">    <span class="keyword">var</span> show: <span class="type">Bool!</span></span><br><span class="line">    <span class="keyword">var</span> type: <span class="type">String!</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(<span class="built_in">map</span>: <span class="type">Map</span>) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">mapping</span><span class="params">(<span class="built_in">map</span>: Map)</span></span> &#123;</span><br><span class="line">        id   &lt;- <span class="built_in">map</span>[<span class="string">"id"</span>]</span><br><span class="line">        lock &lt;- <span class="built_in">map</span>[<span class="string">"lock"</span>]</span><br><span class="line">        name &lt;- <span class="built_in">map</span>[<span class="string">"name"</span>]</span><br><span class="line">        show &lt;- <span class="built_in">map</span>[<span class="string">"show"</span>]</span><br><span class="line">        type &lt;- <span class="built_in">map</span>[<span class="string">"type"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="一、本地-initialData-json-文件"><a href="#一、本地-initialData-json-文件" class="headerlink" title="一、本地 initialData.json 文件"></a>一、本地 initialData.json 文件</h5><figure class="highlight"><table><tr><td class="code"><pre><span class="line">"newsMenuVoList": [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"news_all"</span>,</span><br><span class="line">        <span class="attr">"lock"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"热搜"</span>,</span><br><span class="line">        <span class="attr">"show"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"推荐"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"news_1"</span>,</span><br><span class="line">        <span class="attr">"lock"</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"国际"</span>,</span><br><span class="line">        <span class="attr">"show"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"推荐"</span></span><br><span class="line">     &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h6 id="1-读取本地文件转化成Dictionary"><a href="#1-读取本地文件转化成Dictionary" class="headerlink" title="1.读取本地文件转化成Dictionary"></a>1.读取本地文件转化成Dictionary</h6><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">queryInitialDic</span><span class="params">()</span></span> -&gt; <span class="type">Any</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.initialDic == <span class="literal">nil</span> &#123;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">let</span> path = <span class="type">Bundle</span>.main.path(forResource: <span class="string">"initialData"</span>, ofType: <span class="string">"json"</span>)</span><br><span class="line">            <span class="keyword">let</span> data = <span class="type">NSData</span>.<span class="keyword">init</span>(contentsOfFile: path!)</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">var</span> dic: <span class="type">Any?</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                dic = <span class="keyword">try</span> <span class="type">JSONSerialization</span>.jsonObject(with: data! <span class="keyword">as</span> <span class="type">Data</span>, options: <span class="type">JSONSerialization</span>.<span class="type">ReadingOptions</span>.allowFragments)</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">self</span>.initialDic = dic!</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">return</span> dic!</span><br><span class="line">            &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">            </span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">self</span>.initialDic</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="type">NSNull</span>()</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h6 id="2-转Object"><a href="#2-转Object" class="headerlink" title="2.转Object"></a>2.转Object</h6><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewsManager</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> sharedInstance = <span class="type">NewsManager</span>()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> newsArray = [<span class="type">News</span>]()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> array = <span class="type">NewsInitializer</span>.sharedInstance.newsMenuVoList()</span><br><span class="line">        <span class="keyword">var</span> tempArray = [<span class="type">News</span>]()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="number">_</span>, value) <span class="keyword">in</span> array.enumerated() &#123;</span><br><span class="line">            <span class="keyword">let</span> json = <span class="type">JSON</span>(value)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> jsongString = json.rawString() &#123;</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">let</span> news = <span class="type">News</span>(<span class="type">JSONString</span>: jsongString) &#123;</span><br><span class="line">                    tempArray.append(news)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="二、读取接口"><a href="#二、读取接口" class="headerlink" title="二、读取接口"></a>二、读取接口</h5><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fetchNews</span><span class="params">(withID id: String, page: Int, completionHandler:@escaping <span class="params">(Array&lt;News&gt;?)</span></span></span> -&gt; ())&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> tempArray = [<span class="type">News</span>]()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> paras = [ <span class="string">"id"</span>: id,</span><br><span class="line">                      <span class="string">"page"</span>: page ] <span class="keyword">as</span> [<span class="type">String</span> : <span class="type">Any</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="type">Alamofire</span>.request(<span class="type">NEWS_API</span>, parameters: paras).responseJSON &#123; response <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> data: <span class="type">Dictionary</span> = response.result.value <span class="keyword">as</span>? <span class="type">Dictionary</span>&lt;<span class="type">String</span>, <span class="type">Any</span>&gt; &#123;</span><br><span class="line">                </span><br><span class="line">                <span class="keyword">let</span> arr: <span class="type">Array</span>&lt;<span class="type">Any</span>&gt; = data[<span class="string">"list"</span>] <span class="keyword">as</span>! <span class="type">Array</span>&lt;<span class="type">Any</span>&gt;</span><br><span class="line">                <span class="keyword">for</span> (<span class="number">_</span> , value) <span class="keyword">in</span> arr.enumerated() &#123;</span><br><span class="line">                    <span class="keyword">let</span> json = <span class="type">JSON</span>(value)</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">let</span> jsongString = json.rawString() &#123;</span><br><span class="line">                        <span class="keyword">if</span> <span class="keyword">let</span> news = <span class="type">News</span>(<span class="type">JSONString</span>: jsongString) &#123;</span><br><span class="line">                            tempArray.append(news)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                completionHandler(tempArray)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                completionHandler(<span class="literal">nil</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>tech</tag>
+        <tag>swift</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>用 lame 把 wav 转换成 mp3</title>
+    <url>/2020/06/12/convert-wav-to-mp3-with-lame/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>项目中用到了录制音频转换成 mp3 后上传，网上查的都是 OC 写的，这里用的 swift 4.2，记录一下。</p>
+<a id="more"></a>
+<h3 id="录制"><a href="#录制" class="headerlink" title="录制"></a>录制</h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">recorder = <span class="keyword">try</span> <span class="type">AVAudioRecorder</span>(url: filePathURL, settings: [</span><br><span class="line">                <span class="type">AVFormatIDKey</span>: <span class="type">Int</span>(kAudioFormatLinearPCM),</span><br><span class="line">                <span class="type">AVSampleRateKey</span>: <span class="number">44100</span>,</span><br><span class="line">                <span class="type">AVNumberOfChannelsKey</span>: <span class="number">1</span>,</span><br><span class="line">                <span class="type">AVLinearPCMBitDepthKey</span>: <span class="number">16</span>,</span><br><span class="line">                <span class="type">AVEncoderAudioQualityKey</span>:<span class="type">AVAudioQuality</span>.high.rawValue</span><br><span class="line">            ])</span><br></pre></td></tr></table></figure>
+<h3 id="编译-lame-静态库"><a href="#编译-lame-静态库" class="headerlink" title="编译 lame 静态库"></a>编译 lame 静态库</h3><p><a href="https://github.com/wuqiong/mp3lame-for-iOS" target="_blank" rel="noopener">https://github.com/wuqiong/mp3lame-for-iOS</a></p>
+<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> read = <span class="number">0</span></span><br><span class="line"><span class="keyword">var</span> write = <span class="number">0</span></span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> pcm = fopen(wavPath, <span class="string">"rb"</span>)</span><br><span class="line">fseek(pcm, <span class="number">4</span>*<span class="number">1024</span>, <span class="type">SEEK_CUR</span>)</span><br><span class="line"><span class="keyword">let</span> mp3 = fopen(mp3Path, <span class="string">"wb+"</span>)</span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> pcmSize = <span class="number">8192</span></span><br><span class="line"><span class="keyword">let</span> mp3Size = <span class="number">8192</span></span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> pcmBuffer = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">Int16</span>&gt;.allocate(capacity: <span class="type">Int</span>(pcmSize*<span class="number">2</span>))</span><br><span class="line"><span class="keyword">let</span> mp3Buffer = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">UInt8</span>&gt;.allocate(capacity: <span class="type">Int</span>(mp3Size))</span><br><span class="line"></span><br><span class="line">            </span><br><span class="line"><span class="keyword">let</span> lame = lame_init()</span><br><span class="line">lame_set_num_channels(lame, <span class="number">1</span>)</span><br><span class="line"><span class="comment">//                lame_set_mode(lame, MONO)</span></span><br><span class="line">lame_set_in_samplerate(lame, <span class="number">22050</span>)</span><br><span class="line"><span class="comment">//                lame_set_brate(lame, rate)</span></span><br><span class="line">lame_set_VBR(lame, vbr_default)</span><br><span class="line">lame_init_params(lame)</span><br><span class="line">            </span><br><span class="line"><span class="keyword">repeat</span> &#123;</span><br><span class="line">		read = fread(pcmBuffer, <span class="number">2</span>*<span class="type">MemoryLayout</span>&lt;<span class="type">Int16</span>&gt;.size, pcmSize, pcm)</span><br><span class="line">		<span class="keyword">if</span> read == <span class="number">0</span> &#123;</span><br><span class="line">				write = <span class="type">Int</span>(lame_encode_flush(lame, mp3Buffer, <span class="type">Int32</span>(mp3Size)))</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				write = <span class="type">Int</span>(lame_encode_buffer_interleaved(lame, pcmBuffer, <span class="type">Int32</span>(read), mp3Buffer, <span class="type">Int32</span>(mp3Size)))</span><br><span class="line">		&#125;</span><br><span class="line">                </span><br><span class="line">		<span class="built_in">print</span>(<span class="string">"write\(write)"</span>)</span><br><span class="line">		fwrite(mp3Buffer, write, <span class="number">1</span>, mp3)</span><br><span class="line">                </span><br><span class="line">&#125; <span class="keyword">while</span> read != <span class="number">0</span></span><br><span class="line"><span class="comment">//                lame_mp3_tags_fid(lame, mp3)</span></span><br><span class="line">lame_close(lame)</span><br><span class="line">fclose(mp3)</span><br><span class="line">fclose(pcm)</span><br></pre></td></tr></table></figure>
+<h3 id="遗留问题"><a href="#遗留问题" class="headerlink" title="遗留问题"></a>遗留问题</h3><p>录制时候采样率为 44100，转换时如果设置 44100 的采样率，发现会播放两倍速，减半成 22050 以后正常，这个等我学习点理论知识以后再来补充。</p>
+]]></content>
+      <tags>
+        <tag>音视频</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用 git submodule 备份 hexo 的主题</title>
+    <url>/2018/12/02/backup-hexo-theme-with-git-submodule/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>之前备份 hexo 的主题 next 的时候感觉很麻烦<a href="/2016/07/19/init-and-backup-hexo-blog/#备份Github">看这里</a>， 最近某牛测试域名回收导致资源链接都失效了，又看见 next 主题更新到了 6.0，然后就试着用 git submodule 来更优雅的备份自定义的主题。</p>
+<a id="more"></a>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><p>首先 fork 主题到自己仓库如 <code>my-theme-git-repo</code></p>
+</li>
+<li><p>删除之前的 <code>themes/next</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd hexo_blog</span><br><span class="line">git rm -r --cached themes/next/</span><br><span class="line">rm -rf themes/next/</span><br><span class="line">git submodule add my-theme-git themes/next/</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> up remote upsteam to update</span></span><br><span class="line">cd themes/next</span><br><span class="line">git remote add upstream https://github.com/theme-next/hexo-theme-next</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义主题后只需要在 <code>themes/next</code> 下进行 pull/push， 也可以在本目录下使用 upstream 让自己的 fork 的远端仓库与原主题保持同步</p>
+</li>
+<li><p>切换新电脑后</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone my-blog-git</span><br><span class="line">cd my-blog-git</span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/theme-next/hexo-theme-next/issues/483" target="_blank" rel="noopener">issues</a></p>
+]]></content>
+      <tags>
+        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
@@ -434,6 +390,28 @@
       </tags>
   </entry>
   <entry>
+    <title>CSMA/CD 协议</title>
+    <url>/2021/07/26/csma-cd/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>CSMA/CD 协议。</p>
+<a id="more"></a>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p><img src="/images/computer-networking/csma-1.png" alt="1"></p>
+<p><img src="/images/computer-networking/csma-2.png" alt="2"></p>
+<p><img src="/images/computer-networking/csma-3.png" alt="3"></p>
+<p><img src="/images/computer-networking/csma-4.png" alt="4"></p>
+<p><img src="/images/computer-networking/csma-5.png" alt="5"></p>
+<p><img src="/images/computer-networking/csma-6.png" alt="6"></p>
+<p><img src="/images/computer-networking/csma-7.png" alt="7"></p>
+<p><img src="/images/computer-networking/csma-8.png" alt="8"></p>
+<p><img src="/images/computer-networking/csma-9.png" alt="9"></p>
+<p><img src="/images/computer-networking/csma-10.png" alt="10"></p>
+<p><img src="/images/computer-networking/csma-11.png" alt="11"></p>
+<h3 id="截图来源"><a href="#截图来源" class="headerlink" title="截图来源"></a>截图来源</h3><p><a href="https://www.bilibili.com/video/BV1Ut411d7RE?p=6" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1Ut411d7RE?p=6</a></p>
+]]></content>
+      <tags>
+        <tag>计算机网络</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>git submodule 的使用</title>
     <url>/2019/10/10/git-submodule-usage/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>大概整理下 git submodule 的用法。</p>
@@ -470,6 +448,51 @@
 ]]></content>
       <tags>
         <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>排序算法——堆排序</title>
+    <url>/2018/01/02/heap-sort/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>理一下堆排序的实现原理，以最大堆为例。<br><a id="more"></a></p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>实际以数组 <strong>Array</strong> 来存储，构建完全二叉树。最后一个有子节点的节点的数组下标为 <strong>Array.count / 2  - 1</strong>.以最大堆为例，从最后一个有子节点的节点 Node 开始一直到根结点，将 Node 与其较大的子节点交换，交换后如果还比子节点小，继续与子节点交换。最后构成最大堆。然后将最后一个节点与根结点交换，弹出根节点。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>3，44，38，5，47，15</p>
+<p>按顺序构建堆为</p>
+<p><img src="/images/heap_sorting_0.png" alt=""></p>
+<p>最后一个有子节点的节点的数组下标为 6 / 2 - 1 = 2，也就是 <strong>38</strong></p>
+<h4 id="排序过程："><a href="#排序过程：" class="headerlink" title="排序过程："></a>排序过程：</h4><p>1.<br><strong>38</strong>。大于 15，不用管</p>
+<p><img src="/images/heap_sorting_1.png" alt=""></p>
+<p>2.<br><strong>44</strong>。 与较大的子节点 <strong>47</strong> 交换</p>
+<p><img src="/images/heap_sorting_2.png" alt=""></p>
+<p>3.<br><strong>3</strong>。 与较大的 <strong>47</strong> 交换，然后再与 <strong>44</strong> 交换，构成最大堆。</p>
+<p><img src="/images/heap_sorting_3.png" alt=""></p>
+<p>4.<br>将最后一个节点 <strong>15</strong> 与根结点 <strong>47</strong> 交换，弹出 <strong>47</strong></p>
+<p><img src="/images/heap_sorting_4.png" alt=""></p>
+<p>5.<br>将剩下的依次构建最大堆，直到结束。</p>
+]]></content>
+      <tags>
+        <tag>Sorting</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>shell 配合 fastlane 打包多个 target</title>
+    <url>/2018/06/22/fastlane-with-multiple-targets/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>试一下 fastlane 进行打包上传到 testflight。</p>
+<a id="more"></a>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><p>安装 fastlane</p>
+</li>
+<li><p>安装插件 <a href="https://github.com/SiarheiFedartsou/fastlane-plugin-versioning" target="_blank" rel="noopener"><strong>fastlane-plugin-versioning</strong></a></p>
+</li>
+<li><p>编辑 Fastfile</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">desc <span class="string">"Push a new beta build to TestFlight"</span></span><br><span class="line">  lane <span class="symbol">:beta</span> <span class="keyword">do</span>  <span class="params">|options|</span></span><br><span class="line">  	<span class="comment">#项目名</span></span><br><span class="line">  	target = options[<span class="symbol">:t</span>]</span><br><span class="line">  	build_number = options[<span class="symbol">:n</span>]</span><br><span class="line">  	puts(<span class="string">"要打包 <span class="subst">#&#123;target&#125;</span>  版本号 <span class="subst">#&#123;build_number&#125;</span>"</span>)</span><br><span class="line">    increment_build_number_in_plist(<span class="symbol">target:</span> <span class="string">"<span class="subst">#&#123;target&#125;</span>"</span>, <span class="symbol">build_number:</span> <span class="string">"<span class="subst">#&#123;build_number&#125;</span>"</span>)</span><br><span class="line">    <span class="comment">#increment_build_number_in_plist(target: "Today", build_number: "#&#123;build_number&#125;")</span></span><br><span class="line">    build_app(<span class="symbol">workspace:</span> <span class="string">"XXXX.xcworkspace"</span> ,<span class="symbol">scheme:</span> <span class="string">"<span class="subst">#&#123;target&#125;</span>"</span>)</span><br><span class="line">    upload_to_testflight</span><br><span class="line">  <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建 tf.shell</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">echo "选择要进行 tf 的项目"</span><br><span class="line"></span><br><span class="line">select target in "target1" "target2" "target3"</span><br><span class="line">do</span><br><span class="line">	case $target in</span><br><span class="line">		"target1") targetName="target1"; break ;;</span><br><span class="line">		"target2") targetName="target2"; break ;;</span><br><span class="line">		"target3") targetName="target3"; break ;;</span><br><span class="line">		*) echo "选的不对，再选一次" ;;</span><br><span class="line">	esac</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo "已经选择" $targetName</span><br><span class="line"></span><br><span class="line">currentTime=`date '+%Y%m%d%H%M'`</span><br><span class="line">echo "现在时间 $currentTime"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> fastlane</span></span><br><span class="line">fastlane beta t:$targetName n:$currentTime</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>tech</tag>
       </tags>
   </entry>
   <entry>
@@ -559,132 +582,6 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
 ]]></content>
       <tags>
         <tag>Sorting</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>排序算法——堆排序</title>
-    <url>/2018/01/02/heap-sort/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>理一下堆排序的实现原理，以最大堆为例。<br><a id="more"></a></p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>实际以数组 <strong>Array</strong> 来存储，构建完全二叉树。最后一个有子节点的节点的数组下标为 <strong>Array.count / 2  - 1</strong>.以最大堆为例，从最后一个有子节点的节点 Node 开始一直到根结点，将 Node 与其较大的子节点交换，交换后如果还比子节点小，继续与子节点交换。最后构成最大堆。然后将最后一个节点与根结点交换，弹出根节点。</p>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>3，44，38，5，47，15</p>
-<p>按顺序构建堆为</p>
-<p><img src="/images/heap_sorting_0.png" alt=""></p>
-<p>最后一个有子节点的节点的数组下标为 6 / 2 - 1 = 2，也就是 <strong>38</strong></p>
-<h4 id="排序过程："><a href="#排序过程：" class="headerlink" title="排序过程："></a>排序过程：</h4><p>1.<br><strong>38</strong>。大于 15，不用管</p>
-<p><img src="/images/heap_sorting_1.png" alt=""></p>
-<p>2.<br><strong>44</strong>。 与较大的子节点 <strong>47</strong> 交换</p>
-<p><img src="/images/heap_sorting_2.png" alt=""></p>
-<p>3.<br><strong>3</strong>。 与较大的 <strong>47</strong> 交换，然后再与 <strong>44</strong> 交换，构成最大堆。</p>
-<p><img src="/images/heap_sorting_3.png" alt=""></p>
-<p>4.<br>将最后一个节点 <strong>15</strong> 与根结点 <strong>47</strong> 交换，弹出 <strong>47</strong></p>
-<p><img src="/images/heap_sorting_4.png" alt=""></p>
-<p>5.<br>将剩下的依次构建最大堆，直到结束。</p>
-]]></content>
-      <tags>
-        <tag>Sorting</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>iOS 逆向实践：（一）</title>
-    <url>/2018/04/27/ios-reverse-1/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看到 <a href="https://mp.weixin.qq.com/s/TpwZtPu0DKOwm2d6B9fTmg" target="_blank" rel="noopener">给微信添加聊天记录截图功能</a> 觉得挺好玩的，就照着试了一下。这篇只是开始，并没有达到原文中的效果。</p>
-<a id="more"></a>
-<h3 id="非越狱查看第三方-app-的视图层级"><a href="#非越狱查看第三方-app-的视图层级" class="headerlink" title="非越狱查看第三方 app 的视图层级"></a>非越狱查看第三方 app 的视图层级</h3><p>准备工具：<a href="https://github.com/AloneMonkey/MonkeyDev" target="_blank" rel="noopener">MonkeyDev</a>，reveal， XX助手越狱商店下载的 IPA，</p>
-<ol>
-<li><p>安装 MonkeyDev</p>
-<ul>
-<li><p>安装最新的 <a href="https://github.com/theos/theos" target="_blank" rel="noopener">theos</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo git clone --recursive https:&#x2F;&#x2F;github.com&#x2F;theos&#x2F;theos.git &#x2F;opt&#x2F;theos</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p>安装ldid(如安装theos过程安装了ldid，跳过)</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install ldid</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li><p>安装 MonkeyDev</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo &#x2F;bin&#x2F;sh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;AloneMonkey&#x2F;MonkeyDev&#x2F;master&#x2F;bin&#x2F;md-install)&quot;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>新建工程，选择 MonkeyApp，项目名为 <strong>TestHack</strong>，真机运行 target <strong>TestHackDylib</strong></li>
-</ul>
-<ol start="2">
-<li><p>安装 IPA</p>
-<p>将下载的越狱 IPA 拖到项目中 <strong>TargetApp</strong> 下，真机运行即可在 Reveal 中查看到项目</p>
-</li>
-</ol>
-<h3 id="Cycript调试第三方APP"><a href="#Cycript调试第三方APP" class="headerlink" title="Cycript调试第三方APP"></a>Cycript调试第三方APP</h3><p>下载 <a href="http://www.cycript.org" target="_blank" rel="noopener">cycript</a></p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;cycript -r 192.168.65.37:6666</span><br><span class="line">rp(#0x10562be30)</span><br></pre></td></tr></table></figure>
-<p>192.168.65.37 为手机 IP， 6666 是 MonkeyDev 默认端口。</p>
-<p>如果想查看 <strong>0x10562be30</strong> 层级， <code>rp(#0x10562be30)</code></p>
-<p>10.13 系统下用 cycript 报错的话：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install ruby@2.0</span><br></pre></td></tr></table></figure>
-<p>把 <a href="mailto:**/usr/local/Cellar/ruby@2.0">**/usr/local/Cellar/ruby@2.0</a>/2.0.0-p648_6/lib/libruby.2.0.0.dylib<strong> 拷贝到 </strong>Cycript.lib** 目录下</p>
-<h3 id="导出第三方-app-头文件"><a href="#导出第三方-app-头文件" class="headerlink" title="导出第三方 app 头文件"></a>导出第三方 app 头文件</h3><ol>
-<li><p>安装 <a href="http://stevenygard.com/projects/class-dump/" target="_blank" rel="noopener">class-dump</a> 后将可执行程序 <strong>class-dump</strong> 复制到 Desktop，创建文件夹 <strong>testHeaders</strong></p>
-</li>
-<li><p>XX.ipa 后缀改为 zip，解压，Payload 文件夹下 XX.app 右键显示包内容，复制可执行程序 XX 到 Desktop</p>
-</li>
-<li><p>终端 CD 到 Desktop</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;class-dump -H XX -o .&#x2F;testHeaders</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>看看 <strong>testHeaders</strong> 里有什么</p>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>逆向</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>swift和网页的简单交互</title>
-    <url>/2016/07/20/interactiton-between-html-and-swift/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文仅限于 UIWebView/WKWebview 和 swift 的交互，如果需要 js 直接交互请查看 JSPatch 。<br><a id="more"></a></p>
-<h3 id="UIWebView"><a href="#UIWebView" class="headerlink" title="UIWebView"></a>UIWebView</h3><ol>
-<li><p>webView 传递给 swift<br>利用 request.URL.scheme。例如约定一个 com.myapp。则发请求时</p>
-<pre><code>url＝com.myapp://?function=functionName&amp;params=params
-</code></pre></li>
-<li><p>swift 接收<br>先解析 url，然后在代理方法 <strong>func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -&gt; Bool</strong> 中，</p>
-<pre><code>if request.URL.scheme == com.myapp {
-  self.functionName(params)
-}
-</code></pre></li>
-<li><p>swift 传递给 webView</p>
-<p> webView.stringByEvaluatingJavaScriptFromString(jsString)</p>
-</li>
-</ol>
-<h3 id="WKWebView"><a href="#WKWebView" class="headerlink" title="WKWebView"></a>WKWebView</h3><ol>
-<li><p>方法一</p>
-<ol>
-<li><p>初始化，遵循 <strong>WKNavigationDelegate</strong>, <strong>WKUIDelegate</strong></p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">web = <span class="type">WKWebView</span>.<span class="keyword">init</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="number">300</span>, height: <span class="number">500</span>), configuration: <span class="type">WKWebViewConfiguration</span>())</span><br><span class="line">web.navigationDelegate = <span class="keyword">self</span></span><br></pre></td></tr></table></figure>
-<p>​</p>
-</li>
-<li><p>拦截URL</p>
- <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">webView</span><span class="params">(<span class="number">_</span> webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping <span class="params">(WKNavigationActionPolicy)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">  <span class="built_in">print</span>(navigationAction.request.url)</span><br><span class="line">  <span class="comment">//在这里执行操作</span></span><br><span class="line">  <span class="keyword">self</span>.evaluateJavaScript(js)</span><br><span class="line">  decisionHandler(.cancel)</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​</p>
-</li>
-</ol>
-</li>
-<li><p>方法二</p>
-<ol>
-<li><p>swift</p>
- <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyWebView</span>: <span class="title">WKWebView</span>, <span class="title">WKScriptMessageHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">webView</span>(<span class="title">frame</span>: <span class="title">CGRect</span>) -&gt; <span class="title">MyWebView</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> contentController = <span class="type">WKUserContentController</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> config = <span class="type">WKWebViewConfiguration</span>()</span><br><span class="line">    config.userContentController = contentController</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> webView = <span class="type">MyWebView</span>.<span class="keyword">init</span>(frame: frame, configuration: config)</span><br><span class="line">    contentController.add(webView, name: <span class="string">"test"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> webView</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">userContentController</span><span class="params">(<span class="number">_</span> userContentController: WKUserContentController, didReceive message: WKScriptMessage)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(message.name)</span><br><span class="line">    <span class="built_in">print</span>(message.body)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
- <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">buttonTap</span><span class="params">(<span class="number">_</span> sender: <span class="keyword">Any</span>)</span></span> &#123;</span><br><span class="line">  webView.evaluateJavaScript(<span class="string">"changeColor('blue')"</span>, completionHandler: <span class="literal">nil</span>)        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>html</p>
- <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh-cn"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="actionscript">     <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// alert("test");</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.webkit.messageHandlers.test.postMessage(<span class="string">"test message"</span>);</span></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">     <span class="function"><span class="keyword">function</span> <span class="title">changeColor</span><span class="params">(color)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> h1 = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'h1'</span>)</span></span><br><span class="line">      h1[0].style.color = color;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>我的第一个标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我的第一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"test()"</span>&gt;</span>Test!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>swift</tag>
       </tags>
   </entry>
   <entry>
@@ -789,6 +686,31 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
       </tags>
   </entry>
   <entry>
+    <title>openwrt 上搭配 openclash 和 adg</title>
+    <url>/2022/03/09/openclash-with-adg-on-openwrt/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>弄了个 N1 盒子刷了个 openwrt，然后开启了 openclash 和 adg 进行分流和过滤。</p>
+<a id="more"></a>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="OpenClash-配置"><a href="#OpenClash-配置" class="headerlink" title="OpenClash 配置"></a>OpenClash 配置</h4><p>DNS 设置</p>
+<ul>
+<li>[ ] 本地 DNS 劫持</li>
+<li>[x] 自定义上游 DNS 服务器（使用默认设置）</li>
+<li>[x] 禁止 Dnsmasq 缓存 DNS</li>
+</ul>
+<h4 id="ADG-设置"><a href="#ADG-设置" class="headerlink" title="ADG 设置"></a>ADG 设置</h4><ol>
+<li><p>作为 dnsmasq 的上游服务器</p>
+</li>
+<li><p>DNS 设置</p>
+<p>唯一上游 DNS：127.0.0.1:7874</p>
+<p>缓存配置：0</p>
+</li>
+</ol>
+<h4 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h4><p><img src="/images/openclash-with-adg.jpg" alt="Demo"></p>
+]]></content>
+      <tags>
+        <tag>openwrt</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>集成 ijkplayer</title>
     <url>/2018/07/04/play-rtmp-stream-with-ijkplayer/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Mac 上推 rtmp 流， iOS 集成 ijkPlayer 播放。</p>
@@ -824,6 +746,53 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
       </tags>
   </entry>
   <entry>
+    <title>swift和网页的简单交互</title>
+    <url>/2016/07/20/interactiton-between-html-and-swift/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文仅限于 UIWebView/WKWebview 和 swift 的交互，如果需要 js 直接交互请查看 JSPatch 。<br><a id="more"></a></p>
+<h3 id="UIWebView"><a href="#UIWebView" class="headerlink" title="UIWebView"></a>UIWebView</h3><ol>
+<li><p>webView 传递给 swift<br>利用 request.URL.scheme。例如约定一个 com.myapp。则发请求时</p>
+<pre><code>url＝com.myapp://?function=functionName&amp;params=params
+</code></pre></li>
+<li><p>swift 接收<br>先解析 url，然后在代理方法 <strong>func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -&gt; Bool</strong> 中，</p>
+<pre><code>if request.URL.scheme == com.myapp {
+  self.functionName(params)
+}
+</code></pre></li>
+<li><p>swift 传递给 webView</p>
+<p> webView.stringByEvaluatingJavaScriptFromString(jsString)</p>
+</li>
+</ol>
+<h3 id="WKWebView"><a href="#WKWebView" class="headerlink" title="WKWebView"></a>WKWebView</h3><ol>
+<li><p>方法一</p>
+<ol>
+<li><p>初始化，遵循 <strong>WKNavigationDelegate</strong>, <strong>WKUIDelegate</strong></p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line">web = <span class="type">WKWebView</span>.<span class="keyword">init</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="number">300</span>, height: <span class="number">500</span>), configuration: <span class="type">WKWebViewConfiguration</span>())</span><br><span class="line">web.navigationDelegate = <span class="keyword">self</span></span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>拦截URL</p>
+ <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">webView</span><span class="params">(<span class="number">_</span> webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping <span class="params">(WKNavigationActionPolicy)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">  <span class="built_in">print</span>(navigationAction.request.url)</span><br><span class="line">  <span class="comment">//在这里执行操作</span></span><br><span class="line">  <span class="keyword">self</span>.evaluateJavaScript(js)</span><br><span class="line">  decisionHandler(.cancel)</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ol>
+</li>
+<li><p>方法二</p>
+<ol>
+<li><p>swift</p>
+ <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyWebView</span>: <span class="title">WKWebView</span>, <span class="title">WKScriptMessageHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">webView</span>(<span class="title">frame</span>: <span class="title">CGRect</span>) -&gt; <span class="title">MyWebView</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> contentController = <span class="type">WKUserContentController</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> config = <span class="type">WKWebViewConfiguration</span>()</span><br><span class="line">    config.userContentController = contentController</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> webView = <span class="type">MyWebView</span>.<span class="keyword">init</span>(frame: frame, configuration: config)</span><br><span class="line">    contentController.add(webView, name: <span class="string">"test"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> webView</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">userContentController</span><span class="params">(<span class="number">_</span> userContentController: WKUserContentController, didReceive message: WKScriptMessage)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(message.name)</span><br><span class="line">    <span class="built_in">print</span>(message.body)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">buttonTap</span><span class="params">(<span class="number">_</span> sender: <span class="keyword">Any</span>)</span></span> &#123;</span><br><span class="line">  webView.evaluateJavaScript(<span class="string">"changeColor('blue')"</span>, completionHandler: <span class="literal">nil</span>)        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>html</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh-cn"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span></span><br><span class="line"><span class="actionscript">     <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// alert("test");</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.webkit.messageHandlers.test.postMessage(<span class="string">"test message"</span>);</span></span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line"><span class="actionscript">     <span class="function"><span class="keyword">function</span> <span class="title">changeColor</span><span class="params">(color)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> h1 = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'h1'</span>)</span></span><br><span class="line">      h1[0].style.color = color;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>我的第一个标题<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>我的第一个段落。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"test()"</span>&gt;</span>Test!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>swift</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PHP打印html</title>
     <url>/2016/09/08/print-html-in-php/</url>
     <content><![CDATA[<p>在PHP中打印html<br><a id="more"></a></p>
@@ -832,51 +801,6 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
       <tags>
         <tag>PHP</tag>
         <tag>html</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>openwrt 上搭配 openclash 和 adg</title>
-    <url>/2022/03/09/openclash-with-adg-on-openwrt/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>弄了个 N1 盒子刷了个 openwrt，然后开启了 openclash 和 adg 进行分流和过滤。</p>
-<a id="more"></a>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><h4 id="OpenClash-配置"><a href="#OpenClash-配置" class="headerlink" title="OpenClash 配置"></a>OpenClash 配置</h4><p>DNS 设置</p>
-<ul>
-<li>[ ] 本地 DNS 劫持</li>
-<li>[x] 自定义上游 DNS 服务器（使用默认设置）</li>
-<li>[x] 禁止 Dnsmasq 缓存 DNS</li>
-</ul>
-<h4 id="ADG-设置"><a href="#ADG-设置" class="headerlink" title="ADG 设置"></a>ADG 设置</h4><ol>
-<li><p>作为 dnsmasq 的上游服务器</p>
-</li>
-<li><p>DNS 设置</p>
-<p>唯一上游 DNS：127.0.0.1:7874</p>
-<p>缓存配置：0</p>
-</li>
-</ol>
-<h4 id="Done"><a href="#Done" class="headerlink" title="Done"></a>Done</h4><p><img src="/images/openclash-with-adg.jpg" alt="Demo"></p>
-]]></content>
-      <tags>
-        <tag>openwrt</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>提交代码到CocoaPods</title>
-    <url>/2016/09/18/push-to-cocoaPods/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>提交自己代码到 CocoaPods 的步骤<br><a id="more"></a></p>
-<h3 id="注册trunk"><a href="#注册trunk" class="headerlink" title="注册trunk"></a>注册trunk</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">pod trunk register emailAddress <span class="string">'username'</span> --verbose</span><br></pre></td></tr></table></figure>
-<p>点击邮件链接完成注册。</p>
-<p><code>pod trunk me</code> 查看是否注册成功。</p>
-<h3 id="创建PodSpec"><a href="#创建PodSpec" class="headerlink" title="创建PodSpec"></a>创建PodSpec</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod spec create LWChannelManager</span><br></pre></td></tr></table></figure>
-<h3 id="修改-PodSpec"><a href="#修改-PodSpec" class="headerlink" title="修改 PodSpec"></a>修改 PodSpec</h3><p>修改LWChannelManager.podspec文件内容。需要注意 <strong> s.source_files</strong> 是相对于 <strong>.podspec</strong> 的路径。</p>
-<h3 id="添加LICENSE"><a href="#添加LICENSE" class="headerlink" title="添加LICENSE"></a>添加LICENSE</h3><h3 id="提交github"><a href="#提交github" class="headerlink" title="提交github"></a>提交github</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'message'</span></span><br><span class="line">git tag <span class="string">'1.0.0'</span></span><br><span class="line">git push --tags</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<h3 id="Pod验证"><a href="#Pod验证" class="headerlink" title="Pod验证"></a>Pod验证</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">set the new version to <span class="number">1.0</span>.<span class="number">0</span></span><br><span class="line">set the new tag to <span class="number">1.0</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">pod lib lint</span><br><span class="line"><span class="comment">#如果 framework 只支持真机架构可以加 --skip-import-validation</span></span><br></pre></td></tr></table></figure>
-<p>如果正常的话提示验证通过。</p>
-<h3 id="提交CocoaPods"><a href="#提交CocoaPods" class="headerlink" title="提交CocoaPods"></a>提交CocoaPods</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">pod trunk push LWChannelManager.podspec</span><br></pre></td></tr></table></figure>
-<h3 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h3><p>重复步骤 <strong>修改 PodSpec</strong> 到 <strong>提交 CocoaPods</strong></p>
-]]></content>
-      <tags>
-        <tag>CocoaPods</tag>
       </tags>
   </entry>
   <entry>
@@ -917,6 +841,70 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
 ]]></content>
       <tags>
         <tag>Raspberry Pi</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>提交代码到CocoaPods</title>
+    <url>/2016/09/18/push-to-cocoaPods/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>提交自己代码到 CocoaPods 的步骤<br><a id="more"></a></p>
+<h3 id="注册trunk"><a href="#注册trunk" class="headerlink" title="注册trunk"></a>注册trunk</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">pod trunk register emailAddress <span class="string">'username'</span> --verbose</span><br></pre></td></tr></table></figure>
+<p>点击邮件链接完成注册。</p>
+<p><code>pod trunk me</code> 查看是否注册成功。</p>
+<h3 id="创建PodSpec"><a href="#创建PodSpec" class="headerlink" title="创建PodSpec"></a>创建PodSpec</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pod spec create LWChannelManager</span><br></pre></td></tr></table></figure>
+<h3 id="修改-PodSpec"><a href="#修改-PodSpec" class="headerlink" title="修改 PodSpec"></a>修改 PodSpec</h3><p>修改LWChannelManager.podspec文件内容。需要注意 <strong> s.source_files</strong> 是相对于 <strong>.podspec</strong> 的路径。</p>
+<h3 id="添加LICENSE"><a href="#添加LICENSE" class="headerlink" title="添加LICENSE"></a>添加LICENSE</h3><h3 id="提交github"><a href="#提交github" class="headerlink" title="提交github"></a>提交github</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">'message'</span></span><br><span class="line">git tag <span class="string">'1.0.0'</span></span><br><span class="line">git push --tags</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+<h3 id="Pod验证"><a href="#Pod验证" class="headerlink" title="Pod验证"></a>Pod验证</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">set the new version to <span class="number">1.0</span>.<span class="number">0</span></span><br><span class="line">set the new tag to <span class="number">1.0</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">pod lib lint</span><br><span class="line"><span class="comment">#如果 framework 只支持真机架构可以加 --skip-import-validation</span></span><br></pre></td></tr></table></figure>
+<p>如果正常的话提示验证通过。</p>
+<h3 id="提交CocoaPods"><a href="#提交CocoaPods" class="headerlink" title="提交CocoaPods"></a>提交CocoaPods</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">pod trunk push LWChannelManager.podspec</span><br></pre></td></tr></table></figure>
+<h3 id="修改代码"><a href="#修改代码" class="headerlink" title="修改代码"></a>修改代码</h3><p>重复步骤 <strong>修改 PodSpec</strong> 到 <strong>提交 CocoaPods</strong></p>
+]]></content>
+      <tags>
+        <tag>CocoaPods</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>排序算法——选择排序</title>
+    <url>/2017/12/08/selection-sort/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自己动手实现一下各种算法，以后复习也不用到处搜索了<br><a id="more"></a></p>
+<h3 id="通俗一点"><a href="#通俗一点" class="headerlink" title="通俗一点"></a>通俗一点</h3><p>例如从小到大排序，每次假设未排序的首位为最小值，则最小位置为首位。遍历剩下所有未排序，如果发现有值比首位小，标记当前位置为最小位置，继续遍历。发现比最小位置的值还要小，更新此位置为最小位置。一轮循环结束，如果最小位置不为首位，交换两个位置数据。当前循环结束，首位已排序，下次从 +1 位置开始遍历。<br>如果数组个数为 N，则需要循环 N-1 次。</p>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p>Swift 4</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">selectionSort</span><span class="params">(array: <span class="keyword">inout</span> [Int])</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">0</span>..&lt;array.<span class="built_in">count</span> - <span class="number">1</span>&#123;</span><br><span class="line">        <span class="comment">//标记当前 index 为最小 index</span></span><br><span class="line">        <span class="keyword">var</span> minIndex = index</span><br><span class="line">        <span class="keyword">for</span> unSortedIndex <span class="keyword">in</span> index + <span class="number">1</span>..&lt;array.<span class="built_in">count</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> array[unSortedIndex] &lt; array[minIndex] &#123;</span><br><span class="line">                <span class="comment">//如果发现更小的值，更新最小 index</span></span><br><span class="line">                minIndex = unSortedIndex</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> minIndex != index &#123;</span><br><span class="line">            <span class="keyword">let</span> temp = array[index]</span><br><span class="line">            array[index] = array[minIndex]</span><br><span class="line">            array[minIndex] = temp</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"----------------第\(index+1)次循环后-------------------"</span>)</span><br><span class="line">        <span class="keyword">var</span> numbers = <span class="string">""</span></span><br><span class="line">        <span class="keyword">for</span> number <span class="keyword">in</span> array&#123;</span><br><span class="line">            numbers.append(<span class="string">" \(number)"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">print</span>(numbers)</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">----------------第1次循环后-------------------</span><br><span class="line"> 3 44 38 5 47 15</span><br><span class="line">----------------第2次循环后-------------------</span><br><span class="line"> 3 5 38 44 47 15</span><br><span class="line">----------------第3次循环后-------------------</span><br><span class="line"> 3 5 15 44 47 38</span><br><span class="line">----------------第4次循环后-------------------</span><br><span class="line"> 3 5 15 38 47 44</span><br><span class="line">----------------第5次循环后-------------------</span><br><span class="line"> 3 5 15 38 44 47</span><br></pre></td></tr></table></figure>
+<h3 id="动画展示"><a href="#动画展示" class="headerlink" title="动画展示"></a>动画展示</h3><p><img src="/images/selection-sort.gif" alt="selection"></p>
+<p>来自：<a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener">visualgo</a></p>
+]]></content>
+      <tags>
+        <tag>Sorting</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>排序算法——希尔排序</title>
+    <url>/2018/02/24/shell-sort/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>希尔排序，以从小到大排序为例。</p>
+<a id="more"></a>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>将数据按步长进行分组，每组分别进行插入排序。初始步长为 N，后每次都除以 2。最后步长为 1 即进行插入排序。</p>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p><a href="https://zh.wikipedia.org/wiki/希尔排序" target="_blank" rel="noopener">Wiki</a></p>
+<p>swift 4</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">shellSort</span><span class="params">(array: <span class="keyword">inout</span> [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    <span class="keyword">let</span> n = array.<span class="built_in">count</span></span><br><span class="line">    <span class="comment">//初始步长</span></span><br><span class="line">    <span class="keyword">var</span> gap = n / <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> gap &gt; <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> gap..&lt;n &#123;</span><br><span class="line">            <span class="comment">//插入排序</span></span><br><span class="line">            <span class="keyword">let</span> temp = array[i]</span><br><span class="line">            <span class="keyword">var</span> j = i</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span> j &gt;= gap &amp;&amp; array[j-gap] &gt; temp &#123;</span><br><span class="line">                array[j] = array[j-gap]</span><br><span class="line">                j -= gap</span><br><span class="line">            &#125;</span><br><span class="line">            array[j] = temp</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//新步长</span></span><br><span class="line">        gap = gap / <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">print</span>(array)</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> shellArray = [<span class="number">49</span>,<span class="number">38</span>,<span class="number">65</span>,<span class="number">97</span>,<span class="number">76</span>,<span class="number">13</span>,<span class="number">27</span>,<span class="number">49</span>,<span class="number">55</span>,<span class="number">4</span>]</span><br><span class="line">shellSort(array: &amp;shellArray)</span><br><span class="line"></span><br><span class="line">[<span class="number">4</span>, <span class="number">13</span>, <span class="number">27</span>, <span class="number">38</span>, <span class="number">49</span>, <span class="number">49</span>, <span class="number">55</span>, <span class="number">65</span>, <span class="number">76</span>, <span class="number">97</span>]</span><br></pre></td></tr></table></figure>
+<h3 id="动画展示"><a href="#动画展示" class="headerlink" title="动画展示"></a>动画展示</h3><p><a href="http://student.zjzk.cn/course_ware/data_structure/web/flashhtml/shell.htm" target="_blank" rel="noopener">希尔排序</a></p>
+]]></content>
+      <tags>
+        <tag>Sorting</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>YYLabel 显示表情并计算 Auto Layout 下的高度</title>
+    <url>/2018/11/27/show-emotion-with-yylabel/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>记录一下怎么用 YYLabel 显示表情并计算 Auto Layout 下的高度。</p>
+<a id="more"></a>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)awakeFromNib &#123;</span><br><span class="line">    [super awakeFromNib];</span><br><span class="line">    self.contentTextLabel.preferredMaxLayoutWidth &#x3D; [[UIScreen mainScreen] bounds].size.width - 28 - 70 - 20*2;</span><br><span class="line">    &#x2F;&#x2F; Initialization code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setMessage:(RTMMessage *)message &#123;</span><br><span class="line">    [<span class="keyword">super</span> setMessage:message];</span><br><span class="line">    RTMMessageTextObject * object = (RTMMessageTextObject *)message.contentObject;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> * text = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:object.content];</span><br><span class="line">    text.yy_font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">17</span>];</span><br><span class="line">    </span><br><span class="line">    YYTextSimpleEmoticonParser * parser = [YYTextSimpleEmoticonParser new];</span><br><span class="line">    parser.emoticonMapper = [RTMEmotionManager sharedInstance].emotionDict;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.contentTextLabel.attributedText = text;;</span><br><span class="line">    [parser parseText:text selectedRange:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line">    YYTextContainer * container = [YYTextContainer new];</span><br><span class="line">    container.size = <span class="built_in">CGSizeMake</span>(<span class="keyword">self</span>.contentTextLabel.preferredMaxLayoutWidth, <span class="built_in">CGFLOAT_MAX</span>);</span><br><span class="line">    YYTextLayout * layout = [YYTextLayout layoutWithContainer:container text:text];</span><br><span class="line">    <span class="keyword">self</span>.contentTextLabel.textLayout = layout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+ (CGFloat)heightForMessage:(RTMMessage *)message &#123;</span><br><span class="line">    </span><br><span class="line">    static RTMSendTextCell * cell &#x3D; nil;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        cell &#x3D; [[NSBundle mainBundle] loadNibNamed:@&quot;RTMSendTextCell&quot; owner:nil options:nil][0];</span><br><span class="line">    &#125;);</span><br><span class="line">    RTMMessageTextObject * object &#x3D; (RTMMessageTextObject *)message.contentObject;</span><br><span class="line"></span><br><span class="line">    NSMutableAttributedString * text &#x3D; [[NSMutableAttributedString alloc] initWithString:object.content];</span><br><span class="line">    text.yy_font &#x3D; [UIFont systemFontOfSize:17];</span><br><span class="line">    </span><br><span class="line">    YYTextSimpleEmoticonParser * parser &#x3D; [YYTextSimpleEmoticonParser new];</span><br><span class="line">    parser.emoticonMapper &#x3D; [RTMEmotionManager sharedInstance].emotionDict;</span><br><span class="line">    </span><br><span class="line">    cell.contentTextLabel.attributedText &#x3D; text;;</span><br><span class="line">    [parser parseText:text selectedRange:nil];</span><br><span class="line">    </span><br><span class="line">    YYTextContainer * container &#x3D; [YYTextContainer new];</span><br><span class="line">    container.size &#x3D; CGSizeMake(cell.contentTextLabel.preferredMaxLayoutWidth, CGFLOAT_MAX);</span><br><span class="line">    YYTextLayout * layout &#x3D; [YYTextLayout layoutWithContainer:container text:text];</span><br><span class="line">    message.cellHeight &#x3D; layout.textBoundingSize.height;</span><br><span class="line">    return message.cellHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>第三方</tag>
       </tags>
   </entry>
   <entry>
@@ -961,6 +949,21 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
       </tags>
   </entry>
   <entry>
+    <title>swift 中如何使用带参数的单例</title>
+    <url>/2017/08/04/singleton-with-arguments-in-swift/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>swift 中如何使用带参数的单例<br><a id="more"></a></p>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonSetupHelper</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> param:<span class="type">String?</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySingleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> shared = <span class="type">MySingleton</span>()</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">let</span> setup = <span class="type">SingletonSetupHelper</span>()</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">setup</span>(<span class="title">param</span>:<span class="title">String</span>)</span>&#123;</span><br><span class="line">        <span class="type">MySingleton</span>.setup.param = param</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> param = <span class="type">MySingleton</span>.setup.param</span><br><span class="line">        <span class="keyword">guard</span> param != <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">fatalError</span>(<span class="string">"Error - you must call setup before accessing MySingleton.shared"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Regular initialisation using param</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始化单例的时候要先设置 <strong>SingletonSetupHelper</strong> 否则会出现 fatalError</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">MySingleton</span>.setup(param:<span class="string">"MyParam"</span>)</span><br></pre></td></tr></table></figure>
+<p>正常使用单例</p>
+<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">MySingleton</span>.shared()</span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://stackoverflow.com/a/40464136/4256995" target="_blank" rel="noopener">https://stackoverflow.com/a/40464136/4256995</a></p>
+]]></content>
+      <tags>
+        <tag>swift</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>《effective-2.0》 学习笔记</title>
     <url>/2019/04/28/reading-effective-2-0/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>没事要多读书，读好书。</p>
@@ -1001,62 +1004,152 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
       </tags>
   </entry>
   <entry>
-    <title>排序算法——选择排序</title>
-    <url>/2017/12/08/selection-sort/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自己动手实现一下各种算法，以后复习也不用到处搜索了<br><a id="more"></a></p>
-<h3 id="通俗一点"><a href="#通俗一点" class="headerlink" title="通俗一点"></a>通俗一点</h3><p>例如从小到大排序，每次假设未排序的首位为最小值，则最小位置为首位。遍历剩下所有未排序，如果发现有值比首位小，标记当前位置为最小位置，继续遍历。发现比最小位置的值还要小，更新此位置为最小位置。一轮循环结束，如果最小位置不为首位，交换两个位置数据。当前循环结束，首位已排序，下次从 +1 位置开始遍历。<br>如果数组个数为 N，则需要循环 N-1 次。</p>
-<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p>Swift 4</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">selectionSort</span><span class="params">(array: <span class="keyword">inout</span> [Int])</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">0</span>..&lt;array.<span class="built_in">count</span> - <span class="number">1</span>&#123;</span><br><span class="line">        <span class="comment">//标记当前 index 为最小 index</span></span><br><span class="line">        <span class="keyword">var</span> minIndex = index</span><br><span class="line">        <span class="keyword">for</span> unSortedIndex <span class="keyword">in</span> index + <span class="number">1</span>..&lt;array.<span class="built_in">count</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> array[unSortedIndex] &lt; array[minIndex] &#123;</span><br><span class="line">                <span class="comment">//如果发现更小的值，更新最小 index</span></span><br><span class="line">                minIndex = unSortedIndex</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> minIndex != index &#123;</span><br><span class="line">            <span class="keyword">let</span> temp = array[index]</span><br><span class="line">            array[index] = array[minIndex]</span><br><span class="line">            array[minIndex] = temp</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"----------------第\(index+1)次循环后-------------------"</span>)</span><br><span class="line">        <span class="keyword">var</span> numbers = <span class="string">""</span></span><br><span class="line">        <span class="keyword">for</span> number <span class="keyword">in</span> array&#123;</span><br><span class="line">            numbers.append(<span class="string">" \(number)"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">print</span>(numbers)</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">----------------第1次循环后-------------------</span><br><span class="line"> 3 44 38 5 47 15</span><br><span class="line">----------------第2次循环后-------------------</span><br><span class="line"> 3 5 38 44 47 15</span><br><span class="line">----------------第3次循环后-------------------</span><br><span class="line"> 3 5 15 44 47 38</span><br><span class="line">----------------第4次循环后-------------------</span><br><span class="line"> 3 5 15 38 47 44</span><br><span class="line">----------------第5次循环后-------------------</span><br><span class="line"> 3 5 15 38 44 47</span><br></pre></td></tr></table></figure>
-<h3 id="动画展示"><a href="#动画展示" class="headerlink" title="动画展示"></a>动画展示</h3><p><img src="/images/selection-sort.gif" alt="selection"></p>
-<p>来自：<a href="https://visualgo.net/en/sorting" target="_blank" rel="noopener">visualgo</a></p>
+    <title>vps 上文件的上传/下载</title>
+    <url>/2017/08/18/transfer-file-between-local-and-vps/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>列举几种 vps 上文件下载/上传的几种方法（Notes 里记录了 N 种方法，有空尝试了再一一添加 -_-）<br><a id="more"></a></p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ol>
+<li><p><strong>server:</strong> <code>python -m SimpleHTTPServer</code><br><strong>client:</strong>  <code>http://123.45.56.78:8000</code></p>
+<p>缺点：不安全，打开期间任何人都可以访问。所以，文件拖完了赶紧 <strong>Ctrl + C</strong> （我还在研究怎么上传 - -）</p>
+</li>
+<li><p>SFTP</p>
+<ol>
+<li><strong>client:</strong> 生成 SSH Key</li>
+<li><p><strong>server:</strong> <code>cat ~/.ssh/id_rsa.pub | ssh user@123.45.56.78 -p port &quot;mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt;  ~/.ssh/authorized_keys&quot;</code></p>
+<p>自行替换用户名、IP、 端口。</p>
+</li>
+<li><strong>client:</strong> 客户端连接</li>
+</ol>
+</li>
+<li><p>scp(secure copy)</p>
+<ol>
+<li>本地文件到远程目录 <code>scp -P port test.txt user@123.45.56.78:/root/vpsfolder</code></li>
+<li>本地目录到远程目录 <code>scp -P port -r localfolder user@123.45.56.78:/root/vpsfolder</code></li>
+<li>远程文件到本地目录 <code>scp -P port user@123.45.56.78:/root/vpsfolder/test.txt ./localfolder</code></li>
+<li>远程目录到本地目录 <code>scp -P port -r user@123.45.56.78:/root/vpsfolder/test.txt ./localfolder</code></li>
+</ol>
+</li>
+</ol>
 ]]></content>
       <tags>
-        <tag>Sorting</tag>
+        <tag>tech</tag>
       </tags>
   </entry>
   <entry>
-    <title>YYLabel 显示表情并计算 Auto Layout 下的高度</title>
-    <url>/2018/11/27/show-emotion-with-yylabel/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>记录一下怎么用 YYLabel 显示表情并计算 Auto Layout 下的高度。</p>
+    <title>iOS 逆向实践：（一）</title>
+    <url>/2018/04/27/ios-reverse-1/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>看到 <a href="https://mp.weixin.qq.com/s/TpwZtPu0DKOwm2d6B9fTmg" target="_blank" rel="noopener">给微信添加聊天记录截图功能</a> 觉得挺好玩的，就照着试了一下。这篇只是开始，并没有达到原文中的效果。</p>
 <a id="more"></a>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- (void)awakeFromNib &#123;</span><br><span class="line">    [super awakeFromNib];</span><br><span class="line">    self.contentTextLabel.preferredMaxLayoutWidth &#x3D; [[UIScreen mainScreen] bounds].size.width - 28 - 70 - 20*2;</span><br><span class="line">    &#x2F;&#x2F; Initialization code</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setMessage:(RTMMessage *)message &#123;</span><br><span class="line">    [<span class="keyword">super</span> setMessage:message];</span><br><span class="line">    RTMMessageTextObject * object = (RTMMessageTextObject *)message.contentObject;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSMutableAttributedString</span> * text = [[<span class="built_in">NSMutableAttributedString</span> alloc] initWithString:object.content];</span><br><span class="line">    text.yy_font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">17</span>];</span><br><span class="line">    </span><br><span class="line">    YYTextSimpleEmoticonParser * parser = [YYTextSimpleEmoticonParser new];</span><br><span class="line">    parser.emoticonMapper = [RTMEmotionManager sharedInstance].emotionDict;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.contentTextLabel.attributedText = text;;</span><br><span class="line">    [parser parseText:text selectedRange:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line">    YYTextContainer * container = [YYTextContainer new];</span><br><span class="line">    container.size = <span class="built_in">CGSizeMake</span>(<span class="keyword">self</span>.contentTextLabel.preferredMaxLayoutWidth, <span class="built_in">CGFLOAT_MAX</span>);</span><br><span class="line">    YYTextLayout * layout = [YYTextLayout layoutWithContainer:container text:text];</span><br><span class="line">    <span class="keyword">self</span>.contentTextLabel.textLayout = layout;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+ (CGFloat)heightForMessage:(RTMMessage *)message &#123;</span><br><span class="line">    </span><br><span class="line">    static RTMSendTextCell * cell &#x3D; nil;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        cell &#x3D; [[NSBundle mainBundle] loadNibNamed:@&quot;RTMSendTextCell&quot; owner:nil options:nil][0];</span><br><span class="line">    &#125;);</span><br><span class="line">    RTMMessageTextObject * object &#x3D; (RTMMessageTextObject *)message.contentObject;</span><br><span class="line"></span><br><span class="line">    NSMutableAttributedString * text &#x3D; [[NSMutableAttributedString alloc] initWithString:object.content];</span><br><span class="line">    text.yy_font &#x3D; [UIFont systemFontOfSize:17];</span><br><span class="line">    </span><br><span class="line">    YYTextSimpleEmoticonParser * parser &#x3D; [YYTextSimpleEmoticonParser new];</span><br><span class="line">    parser.emoticonMapper &#x3D; [RTMEmotionManager sharedInstance].emotionDict;</span><br><span class="line">    </span><br><span class="line">    cell.contentTextLabel.attributedText &#x3D; text;;</span><br><span class="line">    [parser parseText:text selectedRange:nil];</span><br><span class="line">    </span><br><span class="line">    YYTextContainer * container &#x3D; [YYTextContainer new];</span><br><span class="line">    container.size &#x3D; CGSizeMake(cell.contentTextLabel.preferredMaxLayoutWidth, CGFLOAT_MAX);</span><br><span class="line">    YYTextLayout * layout &#x3D; [YYTextLayout layoutWithContainer:container text:text];</span><br><span class="line">    message.cellHeight &#x3D; layout.textBoundingSize.height;</span><br><span class="line">    return message.cellHeight;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="非越狱查看第三方-app-的视图层级"><a href="#非越狱查看第三方-app-的视图层级" class="headerlink" title="非越狱查看第三方 app 的视图层级"></a>非越狱查看第三方 app 的视图层级</h3><p>准备工具：<a href="https://github.com/AloneMonkey/MonkeyDev" target="_blank" rel="noopener">MonkeyDev</a>，reveal， XX助手越狱商店下载的 IPA，</p>
+<ol>
+<li><p>安装 MonkeyDev</p>
+<ul>
+<li><p>安装最新的 <a href="https://github.com/theos/theos" target="_blank" rel="noopener">theos</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo git clone --recursive https:&#x2F;&#x2F;github.com&#x2F;theos&#x2F;theos.git &#x2F;opt&#x2F;theos</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>安装ldid(如安装theos过程安装了ldid，跳过)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install ldid</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>安装 MonkeyDev</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo &#x2F;bin&#x2F;sh -c &quot;$(curl -fsSL https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;AloneMonkey&#x2F;MonkeyDev&#x2F;master&#x2F;bin&#x2F;md-install)&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>新建工程，选择 MonkeyApp，项目名为 <strong>TestHack</strong>，真机运行 target <strong>TestHackDylib</strong></li>
+</ul>
+<ol start="2">
+<li><p>安装 IPA</p>
+<p>将下载的越狱 IPA 拖到项目中 <strong>TargetApp</strong> 下，真机运行即可在 Reveal 中查看到项目</p>
+</li>
+</ol>
+<h3 id="Cycript调试第三方APP"><a href="#Cycript调试第三方APP" class="headerlink" title="Cycript调试第三方APP"></a>Cycript调试第三方APP</h3><p>下载 <a href="http://www.cycript.org" target="_blank" rel="noopener">cycript</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;cycript -r 192.168.65.37:6666</span><br><span class="line">rp(#0x10562be30)</span><br></pre></td></tr></table></figure>
+<p>192.168.65.37 为手机 IP， 6666 是 MonkeyDev 默认端口。</p>
+<p>如果想查看 <strong>0x10562be30</strong> 层级， <code>rp(#0x10562be30)</code></p>
+<p>10.13 系统下用 cycript 报错的话：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew install ruby@2.0</span><br></pre></td></tr></table></figure>
+<p>把 <a href="mailto:**/usr/local/Cellar/ruby@2.0">**/usr/local/Cellar/ruby@2.0</a>/2.0.0-p648_6/lib/libruby.2.0.0.dylib<strong> 拷贝到 </strong>Cycript.lib** 目录下</p>
+<h3 id="导出第三方-app-头文件"><a href="#导出第三方-app-头文件" class="headerlink" title="导出第三方 app 头文件"></a>导出第三方 app 头文件</h3><ol>
+<li><p>安装 <a href="http://stevenygard.com/projects/class-dump/" target="_blank" rel="noopener">class-dump</a> 后将可执行程序 <strong>class-dump</strong> 复制到 Desktop，创建文件夹 <strong>testHeaders</strong></p>
+</li>
+<li><p>XX.ipa 后缀改为 zip，解压，Payload 文件夹下 XX.app 右键显示包内容，复制可执行程序 XX 到 Desktop</p>
+</li>
+<li><p>终端 CD 到 Desktop</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.&#x2F;class-dump -H XX -o .&#x2F;testHeaders</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>看看 <strong>testHeaders</strong> 里有什么</p>
+</li>
+</ol>
 ]]></content>
       <tags>
-        <tag>第三方</tag>
+        <tag>逆向</tag>
       </tags>
   </entry>
   <entry>
-    <title>swift 中如何使用带参数的单例</title>
-    <url>/2017/08/04/singleton-with-arguments-in-swift/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>swift 中如何使用带参数的单例<br><a id="more"></a></p>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">SingletonSetupHelper</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> param:<span class="type">String?</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySingleton</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> shared = <span class="type">MySingleton</span>()</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">let</span> setup = <span class="type">SingletonSetupHelper</span>()</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">setup</span>(<span class="title">param</span>:<span class="title">String</span>)</span>&#123;</span><br><span class="line">        <span class="type">MySingleton</span>.setup.param = param</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> param = <span class="type">MySingleton</span>.setup.param</span><br><span class="line">        <span class="keyword">guard</span> param != <span class="literal">nil</span> <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">fatalError</span>(<span class="string">"Error - you must call setup before accessing MySingleton.shared"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Regular initialisation using param</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>初始化单例的时候要先设置 <strong>SingletonSetupHelper</strong> 否则会出现 fatalError</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">MySingleton</span>.setup(param:<span class="string">"MyParam"</span>)</span><br></pre></td></tr></table></figure>
-<p>正常使用单例</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="type">MySingleton</span>.shared()</span><br></pre></td></tr></table></figure>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://stackoverflow.com/a/40464136/4256995" target="_blank" rel="noopener">https://stackoverflow.com/a/40464136/4256995</a></p>
-]]></content>
-      <tags>
-        <tag>swift</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>排序算法——希尔排序</title>
-    <url>/2018/02/24/shell-sort/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>希尔排序，以从小到大排序为例。</p>
+    <title>virtualenv in Python</title>
+    <url>/2017/06/26/virtualenv-in-Python/</url>
+    <content><![CDATA[<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>多个程序使用不同的 Python 运行环境 </p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>将数据按步长进行分组，每组分别进行插入排序。初始步长为 N，后每次都除以 2。最后步长为 1 即进行插入排序。</p>
-<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><p><a href="https://zh.wikipedia.org/wiki/希尔排序" target="_blank" rel="noopener">Wiki</a></p>
-<p>swift 4</p>
-<figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">shellSort</span><span class="params">(array: <span class="keyword">inout</span> [Int])</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    <span class="keyword">let</span> n = array.<span class="built_in">count</span></span><br><span class="line">    <span class="comment">//初始步长</span></span><br><span class="line">    <span class="keyword">var</span> gap = n / <span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> gap &gt; <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> gap..&lt;n &#123;</span><br><span class="line">            <span class="comment">//插入排序</span></span><br><span class="line">            <span class="keyword">let</span> temp = array[i]</span><br><span class="line">            <span class="keyword">var</span> j = i</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">while</span> j &gt;= gap &amp;&amp; array[j-gap] &gt; temp &#123;</span><br><span class="line">                array[j] = array[j-gap]</span><br><span class="line">                j -= gap</span><br><span class="line">            &#125;</span><br><span class="line">            array[j] = temp</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//新步长</span></span><br><span class="line">        gap = gap / <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">print</span>(array)</span><br><span class="line">    <span class="keyword">return</span> array</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight swift"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> shellArray = [<span class="number">49</span>,<span class="number">38</span>,<span class="number">65</span>,<span class="number">97</span>,<span class="number">76</span>,<span class="number">13</span>,<span class="number">27</span>,<span class="number">49</span>,<span class="number">55</span>,<span class="number">4</span>]</span><br><span class="line">shellSort(array: &amp;shellArray)</span><br><span class="line"></span><br><span class="line">[<span class="number">4</span>, <span class="number">13</span>, <span class="number">27</span>, <span class="number">38</span>, <span class="number">49</span>, <span class="number">49</span>, <span class="number">55</span>, <span class="number">65</span>, <span class="number">76</span>, <span class="number">97</span>]</span><br></pre></td></tr></table></figure>
-<h3 id="动画展示"><a href="#动画展示" class="headerlink" title="动画展示"></a>动画展示</h3><p><a href="http://student.zjzk.cn/course_ware/data_structure/web/flashhtml/shell.htm" target="_blank" rel="noopener">希尔排序</a></p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>加上 <strong>–no-site-packages</strong> 参数，系统中 Python 安装的第三方包不会复制过来</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">mkdir project</span><br><span class="line">cd project</span><br><span class="line">virtualenv --no-site-packages venv</span><br></pre></td></tr></table></figure>
+<p>进入该环境，正常安装其他第三方包</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">source venv/bin/activate</span><br></pre></td></tr></table></figure>
+<p>退出环境</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
 ]]></content>
       <tags>
-        <tag>Sorting</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>macOS Sierra 10.12 react native的问题</title>
+    <url>/2016/10/10/watchman-on-macos-10-12/</url>
+    <content><![CDATA[<h3 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h3><p>watchman装不上</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">watchman -v</span><br><span class="line">watchman command <span class="keyword">not</span> found</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h6 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h6><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="comment"># clone repo</span></span><br><span class="line">git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/facebook</span><span class="regexp">/watchman.git</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">cd watchman</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"># change to master branch</span></span><br><span class="line"><span class="regexp">git checkout -b v4.6.0 v4.6.0</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"># run compiler</span></span><br><span class="line"><span class="regexp">./autogen</span>.sh</span><br><span class="line">./configure --enable-lenient --without-pcre --with-python</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># check watchman version</span></span><br><span class="line">watchman -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># result should be 4.6.0</span></span><br></pre></td></tr></table></figure>
+<p>原文地址：<a href="https://github.com/facebook/react-native/issues/9309#issuecomment-238966924" target="_blank" rel="noopener">https://github.com/facebook/react-native/issues/9309#issuecomment-238966924</a></p>
+]]></content>
+      <tags>
+        <tag>RN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在 swift 项目中使用 ffmpeg</title>
+    <url>/2019/01/01/using-ffmpeg-in-swift/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习音视频的处理，之前集成的 ijkPlayer 是内置了 ffmpeg，这次是直接在 swift 项目里导入原汁原味的 ffmpeg 库。</p>
+<a id="more"></a>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li><p>编译 ffmpeg</p>
+<p>参照 <a href="https://github.com/kewlbear/FFmpeg-iOS-build-script" target="_blank" rel="noopener"><strong>FFmpeg-iOS-build-script</strong></a> ，编译完成后生成文件夹 <strong>FFmpeg-iOS</strong></p>
+</li>
+<li><p>新建并配置项目</p>
+<ol>
+<li>将 <strong>FFmpeg-iOS</strong> 拷贝至项目里</li>
+<li><p>Target -&gt; Build Settings -&gt; Header Search Paths, 添加 <strong>$(SRCROOT)</strong> 并设置 <strong>recursive</strong></p>
+</li>
+<li><p>在桥接文件里添加例如</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#import &lt;libavformat&#x2F;avformat.h&gt;</span><br><span class="line">#import &lt;libavfilter&#x2F;avfilter.h&gt;</span><br><span class="line">#import &lt;libavfilter&#x2F;buffersrc.h&gt;</span><br><span class="line">#import &lt;libswresample&#x2F;swresample.h&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加系统依赖库 <strong>libz.tbd、libbz2.tbd、libiconv.tbd</strong></p>
+</li>
+</ol>
+</li>
+<li><p>测试</p>
+<p><strong>didFinishLaunchingWithOptions</strong> 中添加代码 <strong>av_register_all()</strong> ， CMD+R</p>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/kewlbear/FFmpeg-iOS-build-script" target="_blank" rel="noopener">https://github.com/kewlbear/FFmpeg-iOS-build-script</a></p>
+<p><a href="https://stackoverflow.com/a/15429359" target="_blank" rel="noopener">https://stackoverflow.com/a/15429359</a></p>
+]]></content>
+      <tags>
+        <tag>ffmpeg</tag>
       </tags>
   </entry>
   <entry>
@@ -1108,37 +1201,6 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
       </tags>
   </entry>
   <entry>
-    <title>vps 上文件的上传/下载</title>
-    <url>/2017/08/18/transfer-file-between-local-and-vps/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>列举几种 vps 上文件下载/上传的几种方法（Notes 里记录了 N 种方法，有空尝试了再一一添加 -_-）<br><a id="more"></a></p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ol>
-<li><p><strong>server:</strong> <code>python -m SimpleHTTPServer</code><br><strong>client:</strong>  <code>http://123.45.56.78:8000</code></p>
-<p>缺点：不安全，打开期间任何人都可以访问。所以，文件拖完了赶紧 <strong>Ctrl + C</strong> （我还在研究怎么上传 - -）</p>
-</li>
-<li><p>SFTP</p>
-<ol>
-<li><strong>client:</strong> 生成 SSH Key</li>
-<li><p><strong>server:</strong> <code>cat ~/.ssh/id_rsa.pub | ssh user@123.45.56.78 -p port &quot;mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt;  ~/.ssh/authorized_keys&quot;</code></p>
-<p>自行替换用户名、IP、 端口。</p>
-</li>
-<li><strong>client:</strong> 客户端连接</li>
-</ol>
-</li>
-<li><p>scp(secure copy)</p>
-<ol>
-<li>本地文件到远程目录 <code>scp -P port test.txt user@123.45.56.78:/root/vpsfolder</code></li>
-<li>本地目录到远程目录 <code>scp -P port -r localfolder user@123.45.56.78:/root/vpsfolder</code></li>
-<li>远程文件到本地目录 <code>scp -P port user@123.45.56.78:/root/vpsfolder/test.txt ./localfolder</code></li>
-<li>远程目录到本地目录 <code>scp -P port -r user@123.45.56.78:/root/vpsfolder/test.txt ./localfolder</code></li>
-</ol>
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>tech</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>UILabel 自适应宽高并设置最大宽度，并主导父 view 的约束</title>
     <url>/2020/12/19/uilabel-max-width-and-image-fit-autolayout/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>聊天页面的场景，UILabel 自适应宽高且有最大宽度，底部是一个 UIImageView 并且父 view 不能被 UIImageView 充满，要以 UILabel 为准。</p>
@@ -1164,68 +1226,6 @@ git clone https://github.com/iissnan/hexo-theme-next themes/next
 ]]></content>
       <tags>
         <tag>autolayout</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>macOS Sierra 10.12 react native的问题</title>
-    <url>/2016/10/10/watchman-on-macos-10-12/</url>
-    <content><![CDATA[<h3 id="问题"><a href="#问题" class="headerlink" title="问题:"></a>问题:</h3><p>watchman装不上</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">watchman -v</span><br><span class="line">watchman command <span class="keyword">not</span> found</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h6 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法:"></a>解决方法:</h6><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="comment"># clone repo</span></span><br><span class="line">git clone <span class="symbol">https:</span>/<span class="regexp">/github.com/facebook</span><span class="regexp">/watchman.git</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">cd watchman</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"># change to master branch</span></span><br><span class="line"><span class="regexp">git checkout -b v4.6.0 v4.6.0</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"># run compiler</span></span><br><span class="line"><span class="regexp">./autogen</span>.sh</span><br><span class="line">./configure --enable-lenient --without-pcre --with-python</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># check watchman version</span></span><br><span class="line">watchman -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># result should be 4.6.0</span></span><br></pre></td></tr></table></figure>
-<p>原文地址：<a href="https://github.com/facebook/react-native/issues/9309#issuecomment-238966924" target="_blank" rel="noopener">https://github.com/facebook/react-native/issues/9309#issuecomment-238966924</a></p>
-]]></content>
-      <tags>
-        <tag>RN</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>virtualenv in Python</title>
-    <url>/2017/06/26/virtualenv-in-Python/</url>
-    <content><![CDATA[<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>多个程序使用不同的 Python 运行环境 </p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">pip install virtualenv</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>加上 <strong>–no-site-packages</strong> 参数，系统中 Python 安装的第三方包不会复制过来</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">mkdir project</span><br><span class="line">cd project</span><br><span class="line">virtualenv --no-site-packages venv</span><br></pre></td></tr></table></figure>
-<p>进入该环境，正常安装其他第三方包</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">source venv/bin/activate</span><br></pre></td></tr></table></figure>
-<p>退出环境</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">deactivate</span><br></pre></td></tr></table></figure>
-]]></content>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在 swift 项目中使用 ffmpeg</title>
-    <url>/2019/01/01/using-ffmpeg-in-swift/</url>
-    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>学习音视频的处理，之前集成的 ijkPlayer 是内置了 ffmpeg，这次是直接在 swift 项目里导入原汁原味的 ffmpeg 库。</p>
-<a id="more"></a>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
-<li><p>编译 ffmpeg</p>
-<p>参照 <a href="https://github.com/kewlbear/FFmpeg-iOS-build-script" target="_blank" rel="noopener"><strong>FFmpeg-iOS-build-script</strong></a> ，编译完成后生成文件夹 <strong>FFmpeg-iOS</strong></p>
-</li>
-<li><p>新建并配置项目</p>
-<ol>
-<li>将 <strong>FFmpeg-iOS</strong> 拷贝至项目里</li>
-<li><p>Target -&gt; Build Settings -&gt; Header Search Paths, 添加 <strong>$(SRCROOT)</strong> 并设置 <strong>recursive</strong></p>
-</li>
-<li><p>在桥接文件里添加例如</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#import &lt;libavformat&#x2F;avformat.h&gt;</span><br><span class="line">#import &lt;libavfilter&#x2F;avfilter.h&gt;</span><br><span class="line">#import &lt;libavfilter&#x2F;buffersrc.h&gt;</span><br><span class="line">#import &lt;libswresample&#x2F;swresample.h&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加系统依赖库 <strong>libz.tbd、libbz2.tbd、libiconv.tbd</strong></p>
-</li>
-</ol>
-</li>
-<li><p>测试</p>
-<p><strong>didFinishLaunchingWithOptions</strong> 中添加代码 <strong>av_register_all()</strong> ， CMD+R</p>
-</li>
-</ol>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://github.com/kewlbear/FFmpeg-iOS-build-script" target="_blank" rel="noopener">https://github.com/kewlbear/FFmpeg-iOS-build-script</a></p>
-<p><a href="https://stackoverflow.com/a/15429359" target="_blank" rel="noopener">https://stackoverflow.com/a/15429359</a></p>
-]]></content>
-      <tags>
-        <tag>ffmpeg</tag>
       </tags>
   </entry>
   <entry>
